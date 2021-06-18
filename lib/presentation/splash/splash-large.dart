@@ -6,8 +6,17 @@ import 'package:control_kuv/presentation/login/login.dart';
 class SplashLarge extends StatelessWidget {
   final GlobalKey<ScaffoldMessengerState> scaffoldKey;
   final SplashBLoC bloc;
+  final String urlLogo;
+  final Color backgroundColor;
+  final Color circleColor;
 
-  const SplashLarge({required this.scaffoldKey, required this.bloc});
+  const SplashLarge({
+    required this.scaffoldKey,
+    required this.bloc,
+    required this.urlLogo,
+    required this.backgroundColor,
+    this.circleColor = Colors.transparent,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +35,7 @@ class SplashLarge extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.all(12.0),
                     child: Image.asset(
-                      'assets/images/aripar_white_logo.png',
+                      urlLogo,
                     ),
                   ),
                 ),

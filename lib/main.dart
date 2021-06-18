@@ -1,23 +1,32 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:control_kuv/main_bloc.dart';
 import 'package:control_kuv/data/api_repository_impl.dart';
 import 'package:control_kuv/data/local_repository_impl.dart';
 import 'package:control_kuv/domain/repository/api_repository.dart';
 import 'package:control_kuv/domain/repository/local_storage_repository.dart';
+import 'package:control_kuv/presentation/common/theme.dart';
 import 'package:control_kuv/presentation/clientes/clientes_bloc.dart';
 import 'package:control_kuv/presentation/preventas/preventas_bloc.dart';
 import 'package:control_kuv/presentation/productos/productos_bloc.dart';
 import 'package:control_kuv/presentation/splash/splash_screen.dart';
 
-void main() {
-  runApp(ControlKuv());
-}
+void main() => runApp(ControlKuv());
 
 class ControlKuv extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // WidgetsFlutterBinding.ensureInitialized();
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: KuveColors.white,
+        statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+    );
     return MultiProvider(
       providers: [
         Provider<ApiRepositoryInterface>(
@@ -54,11 +63,10 @@ class ControlKuv extends StatelessWidget {
       child: Consumer<MainBLoC>(
         builder: (context, bloc, _) {
           return MaterialApp(
-            title: 'Aripar',
+            title: 'Control Kuvemar',
             debugShowCheckedModeBanner: false,
-            // theme: bloc.currentTheme == null
-            //     ? ThemeData.light()
-            //     : bloc.currentTheme,
+            theme: lightTheme,
+            supportedLocales: [const Locale('en'), const Locale('es')],
             home: SplashScreen(),
           );
         },

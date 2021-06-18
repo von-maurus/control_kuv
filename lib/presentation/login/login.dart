@@ -2,6 +2,7 @@ import 'package:control_kuv/domain/repository/api_repository.dart';
 import 'package:control_kuv/domain/repository/local_storage_repository.dart';
 import 'package:control_kuv/presentation/common/custom_form_input.dart';
 import 'package:control_kuv/presentation/common/rounded_button.dart';
+import 'package:control_kuv/presentation/common/theme.dart';
 import 'package:control_kuv/presentation/home/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +26,6 @@ class LoginPage extends StatelessWidget {
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
     ]);
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.blue));
     return ChangeNotifierProvider(
       create: (_) => LoginBLoC(
         apiRepositoryInterface: context.read<ApiRepositoryInterface>(),
@@ -94,7 +93,6 @@ class LoginPage extends StatelessWidget {
       child: ScaffoldMessenger(
         key: _scaffoldKey,
         child: Scaffold(
-          backgroundColor: Colors.blue[700],
           body: Stack(
             children: [
               Container(
@@ -108,6 +106,7 @@ class LoginPage extends StatelessWidget {
                       children: <Widget>[
                         Logo(
                           size: size,
+                          urlLogo: 'assets/images/logo_kuve.png',
                         ),
                         Container(
                           margin: EdgeInsets.only(top: size.height * 0.02),
@@ -122,10 +121,6 @@ class LoginPage extends StatelessWidget {
                                 top: 0,
                                 autoValidateMode:
                                     AutovalidateMode.onUserInteraction,
-                                validator: (value) {
-                                  final response = validateEmail(value!, bloc);
-                                  return response;
-                                },
                                 textInputAction: TextInputAction.next,
                                 focusNode: _focusNodeEmail,
                                 size: size,
@@ -135,6 +130,10 @@ class LoginPage extends StatelessWidget {
                                 textInputType: TextInputType.emailAddress,
                                 function: (value) {
                                   _focusNodePassword.requestFocus();
+                                },
+                                validator: (value) {
+                                  final response = validateEmail(value!, bloc);
+                                  return response;
                                 },
                               ),
                               CustomFormInput(
@@ -172,7 +171,6 @@ class LoginPage extends StatelessWidget {
                                 size: size,
                                 buttonText: 'Iniciar sesión',
                                 onPressed: () => login(context),
-                                buttonColor: Colors.orange[500]!,
                                 buttonTextColor: Colors.black,
                               ),
                             ],
@@ -221,6 +219,7 @@ class LoginPage extends StatelessWidget {
                         children: <Widget>[
                           Logo(
                             size: size,
+                            urlLogo: 'assets/images/logo_kuve.png',
                           ),
                           Container(
                             margin: EdgeInsets.only(top: size.height * 0.02),
@@ -254,7 +253,8 @@ class LoginPage extends StatelessWidget {
                                     size: 50,
                                   ),
                                   validator: (value) {
-                                    final response = validateEmail(value!, bloc);
+                                    final response =
+                                        validateEmail(value!, bloc);
                                     return response;
                                   },
                                   hintStyle: TextStyle(fontSize: 25.0),

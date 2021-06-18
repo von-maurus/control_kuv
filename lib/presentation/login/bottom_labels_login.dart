@@ -6,10 +6,10 @@ class BottomLabels extends StatelessWidget {
       required this.endIndent,
       required this.indent,
       this.sizeForgotPass = 15.0,
-      this.fontSizeNotAccount = 15.0,
+      this.fontSizeNotAccount = 16.0,
       this.fontSizeContact = 17.0,
       this.fontSizeTerms = 17.0,
-      this.adminEmail = 'dist.aripar@gmail.com'});
+      this.adminEmail = 'soporte@kuvemar.com'});
 
   final Size size;
   final double indent;
@@ -55,7 +55,7 @@ class BottomLabels extends StatelessWidget {
             height: size.height * 0.015,
           ),
           Text(
-            'Contáctate con el administrador al correo:\n$adminEmail',
+            'Contáctate a $adminEmail',
             style: TextStyle(fontSize: fontSizeContact),
             textAlign: TextAlign.center,
           ),

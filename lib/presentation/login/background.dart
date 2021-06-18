@@ -1,3 +1,4 @@
+import 'package:control_kuv/presentation/common/theme.dart';
 import 'package:flutter/material.dart';
 
 class Background extends StatelessWidget {
@@ -23,10 +24,8 @@ class Background extends StatelessWidget {
               width: MediaQuery.of(context).orientation == Orientation.landscape
                   ? size.width * 0.15
                   : size.width * 0.28,
-              child: Image.asset(
-                top_image,
-                fit: BoxFit.fill,
-              ),
+              child: Image.asset(top_image,
+                  fit: BoxFit.fill, color: KuveColors.white),
             ),
             child,
           ],

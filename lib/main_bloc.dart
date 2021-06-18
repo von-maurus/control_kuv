@@ -12,10 +12,10 @@ class MainBLoC extends ChangeNotifier {
 
   void loadTheme() async {
     // final isDark = await localRepositoryInterface.isDarkMode() ?? false;
-    updateTheme(ThemeData(
-      primaryColor: Color(0xFF00838F),
-      scaffoldBackgroundColor: Colors.blue,
-    ));
+    // updateTheme(ThemeData(
+    //   primaryColor: Color(0xFF00838F),
+    //   scaffoldBackgroundColor: Colors.blue,
+    // ));
   }
 
   void updateTheme(ThemeData theme) {

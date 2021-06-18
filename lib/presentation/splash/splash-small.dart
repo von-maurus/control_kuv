@@ -6,27 +6,35 @@ import 'package:control_kuv/presentation/splash/splash_bloc.dart';
 class SplashSmall extends StatelessWidget {
   final GlobalKey<ScaffoldMessengerState> scaffoldKey;
   final SplashBLoC bloc;
+  final String urlLogo;
+  final Color backgroundColor;
+  final Color circleColor;
 
-  const SplashSmall({required this.scaffoldKey, required this.bloc});
+  const SplashSmall(
+      {required this.scaffoldKey,
+      required this.bloc,
+      required this.urlLogo,
+      required this.backgroundColor,
+      this.circleColor = Colors.transparent});
 
   @override
   Widget build(BuildContext context) {
     return ScaffoldMessenger(
       key: scaffoldKey,
       child: Scaffold(
-        backgroundColor: Colors.blue[800],
         body: Center(
           child: Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CircleAvatar(
-                  radius: 90.0,
-                  backgroundColor: Colors.blue[900],
+                  radius: 150.0,
+                  backgroundColor: circleColor,
                   child: Padding(
-                    padding: EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Image.asset(
-                      'assets/images/aripar_white_logo.png',
+                      urlLogo,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),
@@ -38,19 +46,13 @@ class SplashSmall extends StatelessWidget {
                     : ElevatedButton(
                         style: ButtonStyle(
                           elevation: MaterialStateProperty.all(5.0),
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.blue),
+                          backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context).backgroundColor),
                           shape: MaterialStateProperty.all(StadiumBorder()),
                         ),
                         onPressed: () => retry(context, scaffoldKey),
-                        child: Text(
-                          'Reintentar',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      )
+                        child: Text('Reintentar', textAlign: TextAlign.center),
+                      ),
               ],
             ),
           ),

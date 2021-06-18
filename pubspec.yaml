@@ -27,6 +27,52 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   pedantic: ^1.11.0
+  flutter_launcher_icons: ^0.9.0
+  flutter_native_splash: ^1.1.8+4
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  remove_alpha_ios: true
+  #  image_path: "assets/icons/launcher_icon.png"
+  image_path_android: "assets/icons/launcher_icon.png"
+  image_path_ios: "assets/icons/launcher_icon.png"
+  #  adaptive_icon_background: #2D1663
+
+
+flutter_native_splash:
+  color: "#2D1663"  # required parameter
+  #  background_image: "assets/logo_kuve.png"  # required parameter
+  # The image parameter allows you to specify an image used in the splash screen.  It must be a
+  # png file.
+  image: assets/images/logo_kuve.png  # optional parameter
+  # The color_dark, background_image_dark, and image_dark are parameters that set the background
+  # and image when the device is in dark mode. If they are not specified, the app will use the
+  # parameters from above. If the image_dark parameter is specified, color_dark or
+  # background_image_dark must be specified.  color_dark and background_image_dark cannot both be
+  # set.
+  #color_dark: "#042a49"  # required if image_dark parameter is used
+  #image_dark: assets/images/splash-invert.png  # optional parameter
+  # The android, ios and web parameters can be used to disable generating a splash screen on a given
+  # platform.
+  #android: false
+  #ios: false
+  #web: false
+  # The position of the splash image can be set with android_gravity, ios_content_mode, and
+  # web_image_mode parameters.  All default to center.
+  #
+  # android_gravity can be one of the following Android Gravity (see
+  # https://developer.android.com/reference/android/view/Gravity): bottom, center,
+  # center_horizontal, center_vertical, clip_horizontal, clip_vertical, end, fill, fill_horizontal,
+  # fill_vertical, left, right, start, or top.
+  #android_gravity: center
+  #
+  # ios_content_mode can be one of the following iOS UIView.ContentMode (see
+  # https://developer.apple.com/documentation/uikit/uiview/contentmode): scaleToFill,
+  # scaleAspectFit, scaleAspectFill, center, top, bottom, left, right, topLeft, topRight,
+  # bottomLeft, or bottomRight.
+  #ios_content_mode: center
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -36,6 +82,6 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/
+    - assets/icons/

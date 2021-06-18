@@ -20,27 +20,30 @@ class CustomFormInput extends StatelessWidget {
   final double bottom;
   final double right;
   final TextStyle? textFormStyle;
+  final Color backgroundColor;
 
-  const CustomFormInput(
-      {required this.size,
-      required this.controller,
-      required this.hintText,
-      required this.prefixIcon,
-      required this.focusNode,
-      this.textInputType = TextInputType.text,
-      this.errorText,
-      this.isObscure = false,
-      required this.validator,
-      required this.textInputAction,
-      required this.function,
-      required this.autoValidateMode,
-      this.suffixWidget,
-      this.hintStyle,
-      required this.right,
-      required this.bottom,
-      required this.left,
-      required this.top,
-      this.textFormStyle});
+  const CustomFormInput({
+    required this.size,
+    required this.controller,
+    required this.hintText,
+    required this.prefixIcon,
+    required this.focusNode,
+    this.textInputType = TextInputType.text,
+    this.errorText,
+    this.isObscure = false,
+    required this.validator,
+    required this.textInputAction,
+    required this.function,
+    required this.autoValidateMode,
+    this.suffixWidget,
+    this.hintStyle,
+    required this.right,
+    required this.bottom,
+    required this.left,
+    required this.top,
+    this.textFormStyle,
+    this.backgroundColor = Colors.white,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +58,17 @@ class CustomFormInput extends StatelessWidget {
         bottom: bottom,
         right: right,
       ),
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
             color: Colors.black.withOpacity(0.25),
             offset: Offset(0, 5),
-            blurRadius: 6.5)
-      ], color: Colors.white, borderRadius: BorderRadius.circular(30.0)),
+            blurRadius: 6.5,
+          )
+        ],
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(30.0),
+      ),
       child: TextFormField(
         style: textFormStyle,
         autovalidateMode: autoValidateMode,
@@ -70,11 +78,11 @@ class CustomFormInput extends StatelessWidget {
         focusNode: focusNode,
         obscureText: isObscure,
         controller: controller,
+        autocorrect: false,
+        keyboardType: textInputType,
         onEditingComplete: () {
           return print(controller.value.text);
         },
-        autocorrect: false,
-        keyboardType: textInputType,
         decoration: InputDecoration(
           prefixText: '\t\t',
           suffixIcon: suffixWidget,

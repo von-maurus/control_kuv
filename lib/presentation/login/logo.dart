@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Logo extends StatelessWidget {
-  const Logo({required this.size});
+  const Logo({required this.size, required this.urlLogo});
 
   final Size size;
+  final String urlLogo;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class Logo extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Image.asset(
-            'assets/images/aripar_white_logo.png',
+            urlLogo,
             fit: BoxFit.contain,
             height: MediaQuery.of(context).orientation == Orientation.landscape
                 ? size.height * 0.3

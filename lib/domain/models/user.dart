@@ -4,6 +4,7 @@
 import 'dart:convert';
 
 import 'package:control_kuv/data/api_repository_impl.dart';
+
 Usuario usuarioFromJson(String str) => Usuario.fromJson(json.decode(str));
 
 String usuarioToJson(Usuario data) => json.encode(data.toJson());
@@ -39,7 +40,9 @@ class Usuario {
         tipo: json['tipo'] as int,
         fono: json['fono'] as String,
         comision: json['comision'] as int,
-        imagen: json['imagen'] ?? ApiRepositoryImpl.urlUserImage + json['imagen'],
+        imagen: json['imagen'] != null
+            ? ApiRepositoryImpl.urlUserImage + json['imagen']
+            : '',
         estado: json['estado'],
       );
 

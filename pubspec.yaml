@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations: # Add this line
+    sdk: flutter         # Add this line
 
   cupertino_icons: ^1.0.2
   provider: 5.0.0
@@ -34,6 +36,7 @@ flutter_icons:
   android: "launcher_icon"
   ios: true
   remove_alpha_ios: true
+  adaptive_icon_background: "#ffffff"
   #  image_path: "assets/icons/launcher_icon.png"
   image_path_android: "assets/icons/launcher_icon.png"
   image_path_ios: "assets/icons/launcher_icon.png"
@@ -41,11 +44,11 @@ flutter_icons:
 
 
 flutter_native_splash:
-  color: "#2D1663"  # required parameter
+  color: "#E8FFFF"  # required parameter
   #  background_image: "assets/logo_kuve.png"  # required parameter
   # The image parameter allows you to specify an image used in the splash screen.  It must be a
   # png file.
-  image: assets/images/logo_kuve.png  # optional parameter
+  image: assets/images/logo_kuve2.png  # optional parameter
   # The color_dark, background_image_dark, and image_dark are parameters that set the background
   # and image when the device is in dark mode. If they are not specified, the app will use the
   # parameters from above. If the image_dark parameter is specified, color_dark or

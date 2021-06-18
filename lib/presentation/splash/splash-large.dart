@@ -23,7 +23,6 @@ class SplashLarge extends StatelessWidget {
     return ScaffoldMessenger(
       key: scaffoldKey,
       child: Scaffold(
-        backgroundColor: Colors.blue[800],
         body: Center(
           child: Container(
             child: Column(
@@ -31,11 +30,12 @@ class SplashLarge extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: MediaQuery.of(context).size.height * 0.25,
-                  backgroundColor: Colors.blue[900],
+                  backgroundColor: circleColor,
                   child: Padding(
                     padding: EdgeInsets.all(12.0),
                     child: Image.asset(
                       urlLogo,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),
@@ -61,15 +61,12 @@ class SplashLarge extends StatelessWidget {
                         style: ButtonStyle(
                             elevation: MaterialStateProperty.all(5.0),
                             shape: MaterialStateProperty.all(StadiumBorder()),
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.blue)),
+                            backgroundColor: MaterialStateProperty.all(
+                                Theme.of(context).backgroundColor)),
                         onPressed: () => retry(context, scaffoldKey),
                         child: Text(
                           'Reintentar',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
                         ),
                       )
               ],

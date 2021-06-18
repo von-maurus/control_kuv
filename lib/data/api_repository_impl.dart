@@ -65,6 +65,7 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
       });
       final responseData = json.decode(response.body);
       print(response.statusCode);
+      print(response.body);
       if (response.statusCode == 200) {
         return LoginResponse(
             responseData['token'], Usuario.fromJson(responseData['model']));

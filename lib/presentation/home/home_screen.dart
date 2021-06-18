@@ -325,13 +325,12 @@ class _BottomNavBarLarge extends StatelessWidget {
             ),
             InkWell(
               onTap: () => onIndexSelected(3),
-              child: user.imagen == null
+              child: user.imagen!.isEmpty
                   ? ClipOval(
                       child: SvgPicture.asset(
                         'assets/icons/profile-user.svg',
                         height: 45,
                         width: 45,
-                        color: Colors.orange,
                       ),
                     )
                   : CircleAvatar(

@@ -10,12 +10,13 @@ class SplashSmall extends StatelessWidget {
   final Color backgroundColor;
   final Color circleColor;
 
-  const SplashSmall(
-      {required this.scaffoldKey,
-      required this.bloc,
-      required this.urlLogo,
-      required this.backgroundColor,
-      this.circleColor = Colors.transparent});
+  const SplashSmall({
+    required this.scaffoldKey,
+    required this.bloc,
+    required this.urlLogo,
+    required this.backgroundColor,
+    this.circleColor = Colors.transparent,
+  });
 
   @override
   Widget build(BuildContext context) {

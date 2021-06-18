@@ -1,14 +1,12 @@
-import 'package:control_kuv/domain/repository/api_repository.dart';
-import 'package:control_kuv/domain/repository/local_storage_repository.dart';
-import 'package:control_kuv/presentation/common/custom_form_input.dart';
-import 'package:control_kuv/presentation/common/rounded_button.dart';
-import 'package:control_kuv/presentation/common/theme.dart';
-import 'package:control_kuv/presentation/home/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-
+import 'package:control_kuv/domain/repository/api_repository.dart';
+import 'package:control_kuv/domain/repository/local_storage_repository.dart';
+import 'package:control_kuv/presentation/common/custom_form_input.dart';
+import 'package:control_kuv/presentation/common/rounded_button.dart';
+import 'package:control_kuv/presentation/home/home_screen.dart';
 import 'background.dart';
 import 'bottom_labels_login.dart';
 import 'login_bloc.dart';
@@ -171,7 +169,6 @@ class LoginPage extends StatelessWidget {
                                 size: size,
                                 buttonText: 'Iniciar sesión',
                                 onPressed: () => login(context),
-                                buttonTextColor: Colors.black,
                               ),
                             ],
                           ),

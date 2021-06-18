@@ -52,6 +52,7 @@ class UserScreen extends StatelessWidget {
           if (snapshot.connectionState != ConnectionState.done) {
             return Container();
           }
+          print(jsonDecode(snapshot.data.toString()));
           var user = Usuario.fromJson(jsonDecode(snapshot.data.toString()));
           return ListView(
             children: [
@@ -64,12 +65,14 @@ class UserScreen extends StatelessWidget {
                           margin: EdgeInsets.only(top: 15),
                           child: Padding(
                             padding: const EdgeInsets.all(4.0),
-                            child: user.imagen == null
+                            child: user.imagen!.isEmpty
                                 ? ClipOval(
-                                    child: SvgPicture.asset(placeholderImage,
-                                        height: 85,
-                                        width: 85,
-                                        color: Colors.blue[900]),
+                                    child: SvgPicture.asset(
+                                      placeholderImage,
+                                      height: 85,
+                                      width: 85,
+                                      // color: Colors.blue[900],
+                                    ),
                                   )
                                 : CircleAvatar(
                                     radius: 65.0,

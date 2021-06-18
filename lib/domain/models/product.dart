@@ -34,14 +34,15 @@ class Producto {
   String? imagen;
   int stock;
   int? stockminimo;
-  List<ImpuestoProducto> impuestoProductos;
+  List<ImpuestoProducto>? impuestoProductos;
 
   factory Producto.fromJson(Map<String, dynamic> json) => Producto(
         id: json['id'],
         codigo: json['codigo'],
         descripcion: json['descripcion'],
-        imagen: json['imagen'] ??
-            ApiRepositoryImpl.urlProductImage + json['imagen'],
+        imagen: json['imagen'] != null
+            ? ApiRepositoryImpl.urlProductImage + json['imagen']
+            : '',
         nombre: json['nombre'],
         preciocompra: json['preciocompra'],
         precioventa: json['precioventa'],
@@ -62,16 +63,16 @@ class Producto {
         'stock': stock,
         'stockminimo': stockminimo,
         'impuestoProductos':
-            List<dynamic>.from(impuestoProductos.map((x) => x.toJson())),
+            List<dynamic>.from(impuestoProductos!.map((x) => x.toJson())),
         'precioVentaFinal': precioVentaFinal
       };
 
   int get precioVentaFinal {
     var totalImpuestos;
-    if (impuestoProductos.isEmpty) {
+    if (impuestoProductos != null || impuestoProductos!.isEmpty) {
       return precioventa;
     }
-    impuestoProductos.forEach((element) {
+    impuestoProductos!.forEach((element) {
       totalImpuestos += element.impuestos.porcentaje;
     });
     return (precioventa + (precioventa * totalImpuestos) / 100).round();

@@ -1,4 +1,3 @@
-import 'package:control_kuv/presentation/common/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:control_kuv/domain/repository/api_repository.dart';
@@ -6,6 +5,7 @@ import 'package:control_kuv/domain/repository/local_storage_repository.dart';
 import 'package:control_kuv/presentation/splash/splash-large.dart';
 import 'package:control_kuv/presentation/splash/splash-small.dart';
 import 'package:control_kuv/presentation/splash/splash_bloc.dart';
+import 'package:control_kuv/presentation/common/theme.dart';
 
 class SplashScreen extends StatefulWidget {
   @override

@@ -1,6 +1,6 @@
 # control_kuv
 
-Aplicacion para el control de ventas e inventario.
+Aplicacion movil multiplataforma para el control de ventas.
 
 ## Getting Started
 

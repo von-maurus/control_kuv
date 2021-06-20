@@ -24,9 +24,6 @@ class HomePage extends StatelessWidget {
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
     ]);
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: Colors.blue[900]),
-    );
     return ChangeNotifierProvider(
       create: (_) => HomeBLoC(
         apiRepositoryInterface: context.read<ApiRepositoryInterface>(),
@@ -38,11 +35,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of<HomeBLoC>(context);
+    final bloc = context.watch<HomeBLoC>();
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        extendBodyBehindAppBar: true,
+        extendBodyBehindAppBar: false,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

@@ -80,6 +80,6 @@ class Producto {
 
   @override
   String toString() {
-    return 'Instancia de Producto: $nombre - \nImpuestos: $impuestoProductos - Stock: $stock';
+    return 'Instancia de Producto: $imagen';
   }
 }

@@ -53,6 +53,8 @@ class UserScreen extends StatelessWidget {
             return Container();
           }
           print(jsonDecode(snapshot.data.toString()));
+
+          ///TODO: Checar tipo de usuario e info retornada
           var user = Usuario.fromJson(jsonDecode(snapshot.data.toString()));
           return ListView(
             children: [
@@ -181,6 +183,7 @@ class UserScreen extends StatelessWidget {
 
   Future<Usuario> _loadUser(BuildContext context) async {
     final homeBloc = Provider.of<HomeBLoC>(context);
+    print(homeBloc.usuario);
     return homeBloc.usuario;
   }
 }

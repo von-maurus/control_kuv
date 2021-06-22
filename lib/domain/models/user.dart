@@ -40,7 +40,7 @@ class Usuario {
         tipo: json['tipo'] as int,
         fono: json['fono'] as String,
         comision: json['comision'] as int,
-        imagen: json['imagen'] != null
+        imagen: json['imagen'] != null && json['imagen'].toString().isNotEmpty
             ? ApiRepositoryImpl.urlUserImage + json['imagen']
             : '',
         estado: json['estado'],
@@ -60,6 +60,6 @@ class Usuario {
 
   @override
   String toString() {
-    return 'Instancia de Usuario: $nombre - $username - $imagen';
+    return 'User: $nombre - $correo - imagen: $imagen';
   }
 }

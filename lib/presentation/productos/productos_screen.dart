@@ -1,3 +1,4 @@
+import 'package:control_kuv/presentation/common/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +36,7 @@ class ProductosScreen extends StatelessWidget {
         body: productsBloc.productList.isNotEmpty
             ? RefreshIndicator(
                 color: Colors.white,
-                backgroundColor: Colors.blue[800],
+                backgroundColor: KuveColors.kuveMorado,
                 onRefresh: () async {
                   await productsBloc.loadProducts();
                 },
@@ -68,174 +69,89 @@ class ProductosScreen extends StatelessWidget {
                       size: size,
                       product: product,
                       onTap: () async {
+                        if (product.stock == 0) {
+                          return showDialog(
+                            context: context,
+                            builder: (_) => AlertDialogPage(
+                              oldContext: _,
+                              title: Center(
+                                child: Text(
+                                  'Alerta',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25.0),
+                                ),
+                              ),
+                              content: Text(
+                                'El producto se encuentra SIN STOCK. Por favor, notifique a su administrador.',
+                                style: TextStyle(fontSize: 18.5),
+                                textAlign: TextAlign.center,
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text(
+                                    'Aceptar',
+                                    style: TextStyle(fontSize: 17.0),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
                         if (product.stockminimo != null) {
-                          if (product.stock > 1) {
-                            if (product.stock <= product.stockminimo!) {
-                              return showDialog(
+                          if (product.stock <= product.stockminimo!) {
+                            return showDialog(
                                 context: context,
                                 builder: (_) => AlertDialogPage(
-                                  oldContext: _,
-                                  title: Center(
-                                    child: Text(
-                                      'Advertencia',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 25.0),
-                                    ),
-                                  ),
-                                  content: Text(
-                                    'El producto se encuentra con Stock Mínimo. Por favor, notifique a su administrador',
-                                    style: TextStyle(fontSize: 18.5),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      style: ButtonStyle(
-                                          shape: MaterialStateProperty.all(
-                                              StadiumBorder())),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                        _showNumberPicker(context, product,
-                                            productsBloc, preSaleBLoC);
-                                      },
-                                      child: Text(
-                                        'Seguir...',
-                                        style: TextStyle(fontSize: 17.0),
+                                      oldContext: _,
+                                      title: Center(
+                                        child: Text(
+                                          'Advertencia',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 25.0),
+                                        ),
                                       ),
-                                    ),
-                                    TextButton(
-                                      style: ButtonStyle(
-                                          shape: MaterialStateProperty.all(
-                                              StadiumBorder())),
-                                      onPressed: () async =>
-                                          Navigator.of(context).pop(),
-                                      child: Text(
-                                        'Volver',
-                                        style: TextStyle(fontSize: 17.0),
+                                      content: Text(
+                                        'El producto se encuentra con Stock Mínimo. Por favor, notifique a su administrador',
+                                        style: TextStyle(fontSize: 18.5),
+                                        textAlign: TextAlign.center,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            } else {
-                              await _showNumberPicker(
-                                  context, product, productsBloc, preSaleBLoC);
-                            }
-                          } else if (product.stock == 1) {
-                            return showDialog(
-                              context: context,
-                              builder: (_) => AlertDialogPage(
-                                title: Text('Aviso'),
-                                oldContext: _,
-                                content: Padding(
-                                  padding: const EdgeInsets.only(top: 40.0),
-                                  child: Text(
-                                    'Si confirma la pre-venta, este producto quedará sin stock.',
-                                    style: TextStyle(fontSize: 18.5),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                actions: [
-                                  TextButton(
-                                    style: ButtonStyle(
-                                        shape: MaterialStateProperty.all(
-                                            StadiumBorder())),
-                                    onPressed: () {
-                                      print(
-                                          'Cantidad:  ${productsBloc.cantidadProducto}');
-                                      preSaleBLoC.add(product, 1);
-                                      productsBloc.cantidadProducto = 1;
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text(
-                                      'Seguir...',
-                                      style: TextStyle(fontSize: 17.0),
-                                    ),
-                                  ),
-                                  TextButton(
-                                    style: ButtonStyle(
-                                        shape: MaterialStateProperty.all(
-                                            StadiumBorder())),
-                                    onPressed: () async {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text(
-                                      'Volver',
-                                      style: TextStyle(fontSize: 17.0),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          } else {
-                            return showDialog(
-                              context: context,
-                              builder: (_) => AlertDialogPage(
-                                oldContext: _,
-                                title: Center(
-                                  child: Text(
-                                    'Alerta',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 25.0),
-                                  ),
-                                ),
-                                content: Text(
-                                  'El producto se encuentra SIN STOCK. Por favor, notifique a su administrador.',
-                                  style: TextStyle(fontSize: 18.5),
-                                  textAlign: TextAlign.center,
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text(
-                                      'Aceptar',
-                                      style: TextStyle(fontSize: 17.0),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }
-                        } else {
-                          if (product.stock != 0) {
-                            await _showNumberPicker(
-                                context, product, productsBloc, preSaleBLoC);
-                          } else {
-                            return showDialog(
-                              context: context,
-                              builder: (_) => AlertDialogPage(
-                                oldContext: _,
-                                title: Center(
-                                  child: Text(
-                                    'Alerta',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 25.0),
-                                  ),
-                                ),
-                                content: Text(
-                                  'El producto se encuentra SIN STOCK. Por favor, notifique a su administrador.',
-                                  style: TextStyle(fontSize: 18.5),
-                                  textAlign: TextAlign.center,
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text(
-                                      'Aceptar',
-                                      style: TextStyle(fontSize: 17.0),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
+                                      actions: [
+                                        TextButton(
+                                          style: ButtonStyle(
+                                              shape: MaterialStateProperty.all(
+                                                  StadiumBorder())),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                            _showNumberPicker(context, product,
+                                                productsBloc, preSaleBLoC);
+                                          },
+                                          child: Text(
+                                            'Seguir...',
+                                            style: TextStyle(fontSize: 17.0),
+                                          ),
+                                        ),
+                                        TextButton(
+                                          style: ButtonStyle(
+                                              shape: MaterialStateProperty.all(
+                                                  StadiumBorder())),
+                                          onPressed: () async =>
+                                              Navigator.of(context).pop(),
+                                          child: Text(
+                                            'Volver',
+                                            style: TextStyle(fontSize: 17.0),
+                                          ),
+                                        ),
+                                      ],
+                                    ));
                           }
                         }
+                        return await _showNumberPicker(
+                            context, product, productsBloc, preSaleBLoC);
                       },
                     );
                   },
@@ -255,26 +171,29 @@ class ProductosScreen extends StatelessWidget {
     return AppBar(
       centerTitle: true,
       elevation: 6.0,
-      backgroundColor: Colors.blue[900],
+      backgroundColor: KuveColors.kuveMorado,
       toolbarHeight: 42.0,
       title: Text(
         'Productos',
         style: TextStyle(
           fontSize: 25.0,
+          color: Theme.of(context).canvasColor,
         ),
       ),
       actions: [
         IconButton(
+          color: Theme.of(context).canvasColor,
+          splashColor: Colors.transparent,
           icon: Icon(
             Icons.search,
             size: 30,
           ),
-          color: Colors.white,
           onPressed: () async {
             final product = await showSearch(
-                context: context,
-                delegate: ProductSearchDelegate('Buscar producto',
-                    productosBLoC: productsBloc, preSaleBLoC: preSaleBLoC));
+              context: context,
+              delegate: ProductSearchDelegate('Buscar producto',
+                  productosBLoC: productsBloc, preSaleBLoC: preSaleBLoC),
+            );
             if (product != null) {
               //TODO: Guardar historial de busqueda en SharedPreferences localmente
               if (!productsBloc.historial
@@ -288,7 +207,6 @@ class ProductosScreen extends StatelessWidget {
               }
             }
           },
-          splashColor: Colors.transparent,
         )
       ],
     );
@@ -305,7 +223,7 @@ class ProductosScreen extends StatelessWidget {
           child: Text('Seleccione la cantidad'),
         ),
         content: NumberPicker(
-          step: 1,
+          itemCount: 4,
           minValue: 1,
           value: productsBLoC.cantidadProducto,
           haptics: true,

@@ -25,7 +25,7 @@ class ItemProduct extends StatelessWidget {
               ? MediaQuery.of(context).size.width * 0.01
               : MediaQuery.of(context).size.width * 0.0001,
           top: 25),
-      elevation: 15,
+      elevation: 10.0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
       color: Theme.of(context).canvasColor,
       child: Padding(

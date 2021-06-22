@@ -52,10 +52,10 @@ class UserScreen extends StatelessWidget {
           if (snapshot.connectionState != ConnectionState.done) {
             return Container();
           }
-          print(jsonDecode(snapshot.data.toString()));
 
           ///TODO: Checar tipo de usuario e info retornada
-          var user = Usuario.fromJson(jsonDecode(snapshot.data.toString()));
+          //SOLVED: Solucion parcial ya que no es eficiente debido a las transformaciones)
+          var user = Usuario.fromJson(json.decode(json.encode(snapshot.data)));
           return ListView(
             children: [
               Stack(
@@ -89,7 +89,7 @@ class UserScreen extends StatelessWidget {
                       Text(
                         user.nombre,
                         style: TextStyle(
-                            color: Colors.black87,
+                            //color: Colors.black87,
                             fontWeight: FontWeight.w500,
                             fontSize: 20),
                         textAlign: TextAlign.center,
@@ -183,7 +183,7 @@ class UserScreen extends StatelessWidget {
 
   Future<Usuario> _loadUser(BuildContext context) async {
     final homeBloc = Provider.of<HomeBLoC>(context);
-    print(homeBloc.usuario);
+    print('User Info: ${homeBloc.usuario}');
     return homeBloc.usuario;
   }
 }

@@ -49,11 +49,11 @@ class LocalRepositoryImpl extends LocalRepositoryInterface {
     } else {
       imagen = null;
     }
-    print('Imagen: $imagen');
+    print('Imagen: ${imagen.toString()}');
     final correo = sharedPreferences.getString(_prefEmail);
     final estado = sharedPreferences.getInt(_prefEstado);
     final usuario = Usuario(
-      id: id!,
+      id: id,
       nombre: nombre!,
       username: username!,
       tipo: tipo!,

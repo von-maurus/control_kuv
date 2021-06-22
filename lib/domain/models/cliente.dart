@@ -37,10 +37,10 @@ class Cliente {
         nombre: json['nombre'] as String,
         rut: json['rut'] as String,
         correo: json['correo'] as String,
-        direccion: json['direccion'] as String,
+        direccion: json['direccion'],
         fono: json['fono'] as String,
         tipopago: json['tipopago'] as int,
-        numerocuotas: json['numerocuotas'] as int,
+        numerocuotas: json['numerocuotas'],
         estado: json['estado'] as int,
         tipo: json['tipo'] as int,
       );

@@ -1,13 +1,12 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'client_search_delegate.dart';
+import 'cliente_create.dart';
 import 'package:control_kuv/domain/models/cliente.dart';
 import 'package:control_kuv/presentation/clientes/clientes_bloc.dart';
 import 'package:control_kuv/presentation/common/alert_dialog.dart';
 import 'package:control_kuv/presentation/common/kuve_button.dart';
 import 'package:control_kuv/presentation/preventas/preventas_bloc.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import 'client_search_delegate.dart';
-import 'cliente_create.dart';
 
 class ClientesScreen extends StatelessWidget {
   @override
@@ -78,6 +77,7 @@ class ClientesScreen extends StatelessWidget {
                         },
                       );
                     }
+                    print('Lista de clientes: ${clientsBloc.clientList}');
                     return GridView.builder(
                       itemCount: clientsBloc.clientList.length,
                       physics: BouncingScrollPhysics(

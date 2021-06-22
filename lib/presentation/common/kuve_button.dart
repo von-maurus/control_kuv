@@ -18,6 +18,9 @@ class KuveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
+      radius: 25.0,
+      splashColor: Theme.of(context).canvasColor,
+      borderRadius: BorderRadius.circular(20.0),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),

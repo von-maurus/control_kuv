@@ -1,4 +1,3 @@
-import 'package:control_kuv/presentation/common/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +35,7 @@ class HomePage extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
+        appBar: AppBar(toolbarHeight: 0),
         extendBodyBehindAppBar: true,
         extendBody: true,
         body: Column(

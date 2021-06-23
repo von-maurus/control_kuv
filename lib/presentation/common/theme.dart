@@ -41,56 +41,57 @@ final gradient1 = [
 // );
 
 final lightTheme = ThemeData(
+  // primaryColor: KuveColors.kuveMorado,
+  textTheme: GoogleFonts.poppinsTextTheme().apply(
+    bodyColor: KuveColors.white,
+    decorationColor: KuveColors.kuveMorado,
+    displayColor: KuveColors.kuveVerde,
+  ),
+  primarySwatch: Colors.deepPurple,
+  dialogBackgroundColor: Colors.white,
+  dialogTheme: DialogTheme(
+    titleTextStyle: TextStyle(color: KuveColors.kuveMorado, fontSize: 18.0),
+    contentTextStyle: TextStyle(color: KuveColors.kuveMorado, fontSize: 15.0),
+  ),
+  primaryIconTheme: IconThemeData(color: KuveColors.kuveMorado),
+  // accentIconTheme: IconThemeData(color: Colors.grey),
+  iconTheme: IconThemeData(color: Colors.grey),
+  primaryColorBrightness: Brightness.light,
   backgroundColor: KuveColors.white,
-  accentColor: KuveColors.kuveMorado,
+  // accentColor: KuveColors.kuveMorado,
   floatingActionButtonTheme:
       FloatingActionButtonThemeData(backgroundColor: KuveColors.kuveVerde),
   canvasColor: KuveColors.white,
+  brightness: Brightness.dark,
+  hintColor: Colors.grey,
+  inputDecorationTheme: InputDecorationTheme(
+    focusColor: KuveColors.kuveVerdeLessOp,
+    hintStyle: TextStyle(color: Colors.grey.shade100),
+    helperStyle: TextStyle(color: Colors.grey),
+    labelStyle: TextStyle(color: Colors.grey),
+    prefixStyle: TextStyle(
+      color: KuveColors.white,
+    ),
+  ),
   appBarTheme: AppBarTheme(
+    backwardsCompatibility: true,
+    backgroundColor: KuveColors.kuveMorado,
     titleTextStyle: TextStyle(color: KuveColors.white),
     toolbarTextStyle: TextStyle(color: KuveColors.white),
     iconTheme: IconThemeData(color: KuveColors.white),
     elevation: 6.0,
     centerTitle: true,
-    systemOverlayStyle: SystemUiOverlayStyle.dark,
-    backgroundColor: KuveColors.kuveMorado,
-    brightness: Brightness.light,
+    systemOverlayStyle: SystemUiOverlayStyle(
+      systemNavigationBarColor: KuveColors.kuveMorado,
+      statusBarIconBrightness: Brightness.dark,
+      statusBarColor: KuveColors.kuveMorado,
+    ),
     textTheme: TextTheme(
         headline6: TextStyle(
       color: KuveColors.white,
       fontSize: 25.0,
     )),
   ),
-  primaryIconTheme: IconThemeData(color: KuveColors.kuveMorado),
-  primaryColorBrightness: Brightness.light,
-  textTheme: GoogleFonts.poppinsTextTheme().apply(
-    bodyColor: KuveColors.kuveMorado,
-    displayColor: KuveColors.kuveVerde,
-  ),
-  // inputDecorationTheme: InputDecorationTheme(
-  //   border: _borderLight,
-  //   enabledBorder: _borderLight,
-  //   labelStyle: TextStyle(color: KuveColors.purple),
-  //   focusedBorder: _borderLight,
-  //   contentPadding: EdgeInsets.zero,
-  //   hintStyle: GoogleFonts.poppins(
-  //     color: KuveColors.purple,
-  //     fontSize: 10,
-  //   ),
-  // ),
-  // iconTheme: IconThemeData(
-  //   color: KuveColors.purple,
-  // ),
-  // appBarTheme: AppBarTheme(
-  //   color: KuveColors.blue,
-  //   textTheme: GoogleFonts.poppinsTextTheme().copyWith(
-  //     headline6: TextStyle(
-  //       fontSize: 20,
-  //       color: KuveColors.purple,
-  //       fontWeight: FontWeight.bold,
-  //     ),
-  //   ),
-  // ),
 );
 
 // final _borderDark = OutlineInputBorder(

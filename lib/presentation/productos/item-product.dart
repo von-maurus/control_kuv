@@ -94,14 +94,15 @@ class ItemProduct extends StatelessWidget {
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 style: TextStyle(
+                  color: KuveColors.kuveMorado,
                   fontSize:
                       MediaQuery.of(context).orientation == Orientation.portrait
                           ? size.width >= 600
                               ? 19.5
-                              : 15.5
+                              : 13.0
                           : size.width >= 750
                               ? 18.0
-                              : 15.5,
+                              : 14.5,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -116,7 +117,7 @@ class ItemProduct extends StatelessWidget {
                             Orientation.portrait
                         ? size.width >= 600
                             ? 16.5
-                            : 12.0
+                            : 10.5
                         : size.width >= 750
                             ? 19.0
                             : 12.5),
@@ -128,7 +129,7 @@ class ItemProduct extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).primaryColor,
+                  color: KuveColors.purple,
                   fontSize:
                       MediaQuery.of(context).orientation == Orientation.portrait
                           ? size.width >= 600

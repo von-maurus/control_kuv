@@ -63,12 +63,12 @@ class ClientesBLoC extends ChangeNotifier {
 
   bool get isValid {
     if (_tipoPago.value == '1') {
-      if (_nombre.value != '' &&
-          _rut.value != '' &&
-          _correo.value != '' &&
-          _direccion.value != '' &&
-          _fono.value != '' &&
-          _tipo.value != '') {
+      if (_nombre.value.isNotEmpty &&
+          _rut.value.isNotEmpty &&
+          _correo.value.isNotEmpty &&
+          _direccion.value.isNotEmpty &&
+          _fono.value.isNotEmpty &&
+          _tipo.value.isNotEmpty) {
         return true;
       } else {
         return false;
@@ -89,14 +89,14 @@ class ClientesBLoC extends ChangeNotifier {
   }
 
   void clearFields() {
-    _nombre = ValidationItem(null, null);
-    _rut = ValidationItem(null, null);
-    _correo = ValidationItem(null, null);
-    _direccion = ValidationItem(null, null);
-    _fono = ValidationItem(null, null);
-    _tipoPago = ValidationItem('1', null);
-    _numCuotas = ValidationItem(null, null);
-    _tipo = ValidationItem(null, null);
+    _nombre = ValidationItem('', '');
+    _rut = ValidationItem('', '');
+    _correo = ValidationItem('', '');
+    _direccion = ValidationItem('', '');
+    _fono = ValidationItem('', '');
+    _tipoPago = ValidationItem('1', '');
+    _numCuotas = ValidationItem('', '');
+    _tipo = ValidationItem('', '');
     maskFormatter.clear();
     numDiasCuota = 4;
     clientType = 3;
@@ -109,10 +109,10 @@ class ClientesBLoC extends ChangeNotifier {
     if (type == '3') {
       clientType = 3;
       isSelectedType = false;
-      _tipo = ValidationItem(null, 'Error que no se mostrará');
+      _tipo = ValidationItem('', 'Error que no se mostrará');
     } else {
       isSelectedType = true;
-      _tipo = ValidationItem(type, null);
+      _tipo = ValidationItem(type, '');
       clientType = int.parse(type);
     }
     notifyListeners();
@@ -120,11 +120,11 @@ class ClientesBLoC extends ChangeNotifier {
 
   void changeName(String name) {
     if (name.trim().isEmpty) {
-      _nombre = ValidationItem(null, 'Este campo es obligatorio.');
+      _nombre = ValidationItem('', 'Este campo es obligatorio.');
     } else if (name.length < 4) {
-      _nombre = ValidationItem(null, 'Debe contener al menos 4 caractéres.');
+      _nombre = ValidationItem('', 'Debe contener al menos 4 caractéres.');
     } else {
-      _nombre = ValidationItem(name, null);
+      _nombre = ValidationItem(name, '');
     }
     notifyListeners();
   }
@@ -132,14 +132,14 @@ class ClientesBLoC extends ChangeNotifier {
   void changeRUN(String run) {
     run = maskFormatter.getUnmaskedText();
     if (run.isEmpty) {
-      _rut = ValidationItem(null, 'Este campo es obligatorio.');
+      _rut = ValidationItem('', 'Este campo es obligatorio.');
     } else if (run.length < 8) {
-      _rut = ValidationItem(null, 'El RUT es incorrecto.');
+      _rut = ValidationItem('', 'El RUT es incorrecto.');
     } else {
       if (validateRUT(run)) {
-        _rut = ValidationItem(run, null);
+        _rut = ValidationItem(run, '');
       } else {
-        _rut = ValidationItem(null, 'RUT incorrecto, vuelva a intentar.');
+        _rut = ValidationItem('', 'RUT incorrecto, vuelva a intentar.');
       }
     }
     notifyListeners();
@@ -196,20 +196,20 @@ class ClientesBLoC extends ChangeNotifier {
             r'{0,253}[a-zA-Z0-9])?)*$');
     var regex = RegExp(pattern.toString());
     if (email.isEmpty) {
-      _correo = ValidationItem(null, 'Este campo es obligatorio.');
+      _correo = ValidationItem('', 'Este campo es obligatorio.');
     } else if (!regex.hasMatch(email)) {
-      _correo = ValidationItem(null, 'E-mail no válido.');
+      _correo = ValidationItem('', 'E-mail no válido.');
     } else {
-      _correo = ValidationItem(email, null);
+      _correo = ValidationItem(email, '');
     }
     notifyListeners();
   }
 
   void changeAddress(String address) {
     if (address.trim().isEmpty) {
-      _direccion = ValidationItem(null, 'Este campo es obligatorio.');
+      _direccion = ValidationItem('', 'Este campo es obligatorio.');
     } else {
-      _direccion = ValidationItem(address, null);
+      _direccion = ValidationItem(address, '');
     }
     notifyListeners();
   }
@@ -218,13 +218,13 @@ class ClientesBLoC extends ChangeNotifier {
     Pattern pattern = r'[0-9]$';
     var regex = RegExp(pattern.toString());
     if (phone.trim().isEmpty) {
-      _fono = ValidationItem(null, 'Este campo es obligatorio.');
+      _fono = ValidationItem('', 'Este campo es obligatorio.');
     } else if (!regex.hasMatch(phone) ||
         phone.length < 9 ||
         phone.length > 11) {
-      _fono = ValidationItem(null, 'Ingrese un telefono válido.');
+      _fono = ValidationItem('', 'Ingrese un telefono válido.');
     } else {
-      _fono = ValidationItem(phone, null);
+      _fono = ValidationItem(phone, '');
     }
     notifyListeners();
   }
@@ -235,11 +235,11 @@ class ClientesBLoC extends ChangeNotifier {
       if (numCuotas == '4') {
         isSelectedPayDays = false;
         numDiasCuota = 4;
-        _numCuotas = ValidationItem(null, 'Error que no aparecerá.');
+        _numCuotas = ValidationItem('', 'Error que no aparecerá.');
       } else {
         isSelectedPayDays = true;
         numDiasCuota = int.parse(numCuotas);
-        _numCuotas = ValidationItem(numCuotas, null);
+        _numCuotas = ValidationItem(numCuotas, '');
       }
     }
 
@@ -247,24 +247,24 @@ class ClientesBLoC extends ChangeNotifier {
   }
 
   void changePayType(dynamic clientPayType) {
-    _tipoPago = ValidationItem(clientPayType, null);
+    _tipoPago = ValidationItem(clientPayType, '');
     if (clientPayType == '2') {
-      _numCuotas = ValidationItem('1', null);
+      _numCuotas = ValidationItem('1', '');
     } else {
       numDiasCuota = 4;
       isSelectedPayDays = true;
-      _numCuotas = ValidationItem(null, null);
+      _numCuotas = ValidationItem('', '');
     }
     notifyListeners();
   }
 
   Future<bool> submitData() async {
-    if (_tipo.value == null) {
+    if (_tipo.value.isEmpty) {
       isSelectedType = false;
       notifyListeners();
       return false;
     }
-    if (_tipoPago.value == '2' && _numCuotas.value == null) {
+    if (_tipoPago.value == '2' && _numCuotas.value.isEmpty) {
       isSelectedPayDays = false;
       notifyListeners();
     }
@@ -275,15 +275,15 @@ class ClientesBLoC extends ChangeNotifier {
         //  Crear un objeto Cliente
         var client =
             Cliente(nombre: '', rut: '', correo: '', estado: 0, tipo: 0);
-        client.nombre = _nombre.value!;
+        client.nombre = _nombre.value;
         client.rut = _rut.value.toString();
-        client.correo = _correo.value!;
-        client.direccion = _direccion.value!;
-        client.fono = _fono.value!;
+        client.correo = _correo.value;
+        client.direccion = _direccion.value;
+        client.fono = _fono.value;
         client.numerocuotas =
-            _tipoPago.value == '1' ? null : int.parse(_numCuotas.value!);
-        client.tipopago = int.parse(_tipoPago.value!);
-        client.tipo = int.parse(_tipo.value!);
+            _tipoPago.value == '1' ? null : int.parse(_numCuotas.value);
+        client.tipopago = int.parse(_tipoPago.value);
+        client.tipo = int.parse(_tipo.value);
         clientsState = ClientsState.loading;
         notifyListeners();
         final result = await apiRepositoryInterface.createCliente(client);
@@ -320,7 +320,7 @@ class ClientesBLoC extends ChangeNotifier {
       notifyListeners();
       final result = await apiRepositoryInterface.getClientes();
       clientList = result;
-      print('LISTA CON CLIENTES ${clientList.length}');
+      print('Clientes: ${clientList.length}');
       clientsState = ClientsState.initial;
       notifyListeners();
     } on ClientException catch (_) {

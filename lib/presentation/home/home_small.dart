@@ -69,6 +69,7 @@ class BottomNavBarSmall extends StatelessWidget {
                           : KuveColors.white,
                       radius: 25.0,
                       child: IconButton(
+                        alignment: Alignment.center,
                         splashColor: Colors.transparent,
                         icon: Icon(
                           Icons.shopping_basket,
@@ -87,6 +88,10 @@ class BottomNavBarSmall extends StatelessWidget {
                               backgroundColor: Colors.pinkAccent,
                               child: Text(
                                 preSaleBLoC.productsCount.toString(),
+                                style: TextStyle(
+                                  color: KuveColors.kuveMorado,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                     )
@@ -94,7 +99,7 @@ class BottomNavBarSmall extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: 35,
+                width: 52.0,
               ),
               InkWell(
                 onTap: () => onIndexSelected(3),

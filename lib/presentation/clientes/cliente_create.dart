@@ -12,6 +12,7 @@ class ClientCreate extends StatelessWidget {
     final clientsBloc = context.watch<ClientesBLoC>();
     var size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.white,
       key: _scaffoldKey,
       appBar: AppBar(
         title: Text('Registre a su cliente'),

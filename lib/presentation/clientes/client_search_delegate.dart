@@ -1,8 +1,8 @@
 import 'dart:io';
-
 import 'package:control_kuv/domain/models/cliente.dart';
 import 'package:control_kuv/presentation/clientes/clientes_bloc.dart';
 import 'package:control_kuv/presentation/common/alert_dialog.dart';
+import 'package:control_kuv/presentation/common/theme.dart';
 import 'package:control_kuv/presentation/preventas/preventas_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +13,10 @@ class ClientSearchDelegate extends SearchDelegate<Cliente> {
 
   @override
   final String searchFieldLabel;
+  @override
+  final TextStyle? searchFieldStyle;
 
-  ClientSearchDelegate(this.searchFieldLabel,
+  ClientSearchDelegate(this.searchFieldLabel, this.searchFieldStyle,
       {required this.clientesBLoC, required this.preSaleBLoC});
 
   @override
@@ -53,34 +55,31 @@ class ClientSearchDelegate extends SearchDelegate<Cliente> {
         style: TextStyle(
           fontSize: 20.0,
           fontWeight: FontWeight.w500,
+          color: KuveColors.kuveMorado,
         ),
       ));
     }
     return FutureBuilder(
-        future: clientesBLoC.getClientByNameRunEmail(query),
-        builder: (_, AsyncSnapshot snapshot) {
-          if (clientesBLoC.clientsByName.isNotEmpty) {
-            // Crear lista
-            return _showClients(clientesBLoC.clientsByName);
-          } else if (snapshot.connectionState == ConnectionState.done &&
-              clientesBLoC.clientsByName.isEmpty) {
-            return Center(
-              child: Text(
-                'No se encontró el cliente',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            );
-          } else {
-            return Center(
-              child: CircularProgressIndicator(
-                strokeWidth: 8,
-              ),
-            );
-          }
-        });
+      future: clientesBLoC.getClientByNameRunEmail(query),
+      builder: (_, AsyncSnapshot snapshot) {
+        return snapshot.connectionState == ConnectionState.done
+            ? clientesBLoC.clientsByName.isNotEmpty
+                ? _showClients(clientesBLoC.clientsByName)
+                : Center(
+                    child: Text(
+                      'No se encontró el cliente',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w500,
+                        color: KuveColors.kuveMorado,
+                      ),
+                    ),
+                  )
+            : Center(
+                child: CircularProgressIndicator(strokeWidth: 8),
+              );
+      },
+    );
   }
 
   @override
@@ -110,12 +109,16 @@ class ClientSearchDelegate extends SearchDelegate<Cliente> {
           title: Text(
             cliente.nombre,
             maxLines: 1,
-            style: TextStyle(fontSize: 15),
+            style: TextStyle(fontSize: 15, color: KuveColors.kuveMorado),
           ),
           subtitle: Text(
-            'RUN:' + cliente.rut,
+            'RUN:' + cliente.formattedRUT,
             maxLines: 1,
-            style: TextStyle(fontSize: 11.5),
+            style: TextStyle(
+              fontSize: 11.5,
+              letterSpacing: 1.0,
+              color: KuveColors.kuveMoradoLessOp,
+            ),
           ),
         );
       },
@@ -128,7 +131,6 @@ class ClientSearchDelegate extends SearchDelegate<Cliente> {
       context: context,
       barrierDismissible: false,
       builder: (_) => AlertDialogPage(
-        title: Text('Aviso'),
         oldContext: _,
         content: Text(
           '\n¿Confirma agregar al cliente\n\"${cliente.nombre}\" \nen la Pre-Venta?',
@@ -181,15 +183,6 @@ class ClientSearchDelegate extends SearchDelegate<Cliente> {
       barrierDismissible: false,
       builder: (_) => AlertDialogPage(
         oldContext: _,
-        title: Center(
-          child: Text(
-            'Advertencia',
-            style: TextStyle(
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
         content: Text(
           'Ya existe un cliente en la \nPre-Venta.\n¿Desea reemplazarlo?',
           style: TextStyle(fontSize: 17.5),

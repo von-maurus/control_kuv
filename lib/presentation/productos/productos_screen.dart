@@ -1,16 +1,16 @@
-import 'package:control_kuv/presentation/common/custom_number_input.dart';
-import 'package:control_kuv/presentation/common/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-
-import 'item-product.dart';
 import 'package:control_kuv/domain/models/product.dart';
 import 'package:control_kuv/domain/repository/api_repository.dart';
 import 'package:control_kuv/presentation/common/alert_dialog.dart';
+import 'package:control_kuv/presentation/common/theme.dart';
+import 'package:control_kuv/presentation/common/custom_number_input.dart';
 import 'package:control_kuv/presentation/preventas/preventas_bloc.dart';
 import 'package:control_kuv/presentation/productos/product_search_delegate.dart';
 import 'package:control_kuv/presentation/productos/productos_bloc.dart';
+import 'item-product.dart';
 
 class ProductosScreen extends StatelessWidget {
   ProductosScreen._();
@@ -31,7 +31,6 @@ class ProductosScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white70,
         appBar: buildAppBarProducts(context, productsBloc, preSaleBLoC),
         body: productsBloc.productList.isNotEmpty
             ? RefreshIndicator(
@@ -180,7 +179,8 @@ class ProductosScreen extends StatelessWidget {
           onPressed: () async {
             final product = await showSearch(
               context: context,
-              delegate: ProductSearchDelegate('Buscar por: Nombre y Código',
+              delegate: ProductSearchDelegate(
+                  'Nombre y Código', TextStyle(fontSize: 14.0),
                   productosBLoC: productsBloc, preSaleBLoC: preSaleBLoC),
             );
             if (product!.id != 0) {
@@ -219,11 +219,12 @@ class ProductosScreen extends StatelessWidget {
             onChangeInputCantidad: null,
             textInputAction: TextInputAction.done,
             hint: 'Ingrese cantidad',
-            label: 'Editar Cantidad',
+            label: 'Cantidad',
             style: TextStyle(
               fontSize: MediaQuery.of(context).size.width >= 600.0
                   ? MediaQuery.of(context).size.width * 0.025
                   : 15.0,
+              color: KuveColors.kuveMorado,
             ),
             labelTextStyle: TextStyle(
               fontSize: MediaQuery.of(context).size.width >= 600.0

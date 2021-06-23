@@ -87,112 +87,110 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget buildSmallLogin(Size size, LoginBLoC bloc, BuildContext context) {
-    return SafeArea(
-      child: ScaffoldMessenger(
-        key: _scaffoldKey,
-        child: Scaffold(
-          body: Stack(
-            children: [
-              Container(
-                width: double.infinity,
-                height: size.height,
-                child: Background(
-                  size: size,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Logo(
-                          size: size,
-                          urlLogo: 'assets/images/logo_kuve.png',
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: size.height * 0.02),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.051),
-                          child: Column(
-                            children: <Widget>[
-                              CustomFormInput(
-                                right: 0,
-                                bottom: 0,
-                                left: 0,
-                                top: 0,
-                                autoValidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                textInputAction: TextInputAction.next,
-                                focusNode: _focusNodeEmail,
-                                size: size,
-                                prefixIcon: Icon(Icons.email),
-                                hintText: 'Email',
-                                controller: bloc.emailTextController,
-                                textInputType: TextInputType.emailAddress,
-                                function: (value) {
-                                  _focusNodePassword.requestFocus();
-                                },
-                                validator: (value) {
-                                  final response = validateEmail(value!, bloc);
-                                  return response;
-                                },
-                              ),
-                              CustomFormInput(
-                                right: 0,
-                                bottom: 0,
-                                left: 0,
-                                top: 0,
-                                suffixWidget: IconButton(
-                                  icon: Icon(bloc.isObscure
-                                      ? Icons.visibility_off
-                                      : Icons.visibility),
-                                  onPressed: () {
-                                    bloc.showHidePassword();
-                                  },
-                                ),
-                                autoValidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                validator: (value) {
-                                  final response =
-                                      validatePassword(value!, bloc);
-                                  return response;
-                                },
-                                textInputAction: TextInputAction.done,
-                                focusNode: _focusNodePassword,
-                                isObscure: bloc.isObscure,
-                                size: size,
-                                prefixIcon: Icon(Icons.vpn_key),
-                                hintText: 'Contraseña',
-                                controller: bloc.passwordTextController,
-                                function: (value) {
-                                  FocusScope.of(context).unfocus();
+    return ScaffoldMessenger(
+      key: _scaffoldKey,
+      child: Scaffold(
+        appBar: AppBar(toolbarHeight: 0),
+        body: Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              height: size.height,
+              child: Background(
+                size: size,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Logo(
+                        size: size,
+                        urlLogo: 'assets/images/logo_kuve.png',
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: size.height * 0.02),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: size.width * 0.051),
+                        child: Column(
+                          children: <Widget>[
+                            CustomFormInput(
+                              right: 0,
+                              bottom: 0,
+                              left: 0,
+                              top: 0,
+                              autoValidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              textInputAction: TextInputAction.next,
+                              focusNode: _focusNodeEmail,
+                              size: size,
+                              prefixIcon: Icon(Icons.email),
+                              hintText: 'Email',
+                              controller: bloc.emailTextController,
+                              textInputType: TextInputType.emailAddress,
+                              function: (value) {
+                                _focusNodePassword.requestFocus();
+                              },
+                              validator: (value) {
+                                final response = validateEmail(value!, bloc);
+                                return response;
+                              },
+                            ),
+                            CustomFormInput(
+                              right: 0,
+                              bottom: 0,
+                              left: 0,
+                              top: 0,
+                              suffixWidget: IconButton(
+                                icon: Icon(bloc.isObscure
+                                    ? Icons.visibility_off
+                                    : Icons.visibility),
+                                onPressed: () {
+                                  bloc.showHidePassword();
                                 },
                               ),
-                              RoundedButton(
-                                size: size,
-                                buttonText: 'Iniciar sesión',
-                                onPressed: () => login(context),
-                              ),
-                            ],
-                          ),
+                              autoValidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) {
+                                final response = validatePassword(value!, bloc);
+                                return response;
+                              },
+                              textInputAction: TextInputAction.done,
+                              focusNode: _focusNodePassword,
+                              isObscure: bloc.isObscure,
+                              size: size,
+                              prefixIcon: Icon(Icons.vpn_key),
+                              hintText: 'Contraseña',
+                              controller: bloc.passwordTextController,
+                              function: (value) {
+                                FocusScope.of(context).unfocus();
+                              },
+                            ),
+                            RoundedButton(
+                              size: size,
+                              buttonText: 'Iniciar sesión',
+                              onPressed: () => login(context),
+                            ),
+                          ],
                         ),
-                        BottomLabels(
-                          fontSizeTerms: 15.5,
-                          indent: 10,
-                          endIndent: 10,
-                          size: size,
-                        ),
-                      ],
-                    ),
+                      ),
+                      BottomLabels(
+                        fontSizeTerms: 15.5,
+                        indent: 10,
+                        endIndent: 10,
+                        size: size,
+                      ),
+                    ],
                   ),
                 ),
               ),
-              if (bloc.loginState == LoginState.loading)
-                Container(
-                  color: Colors.black45,
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                )
-            ],
-          ),
+            ),
+            if (bloc.loginState == LoginState.loading)
+              Container(
+                color: Colors.black45,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+          ],
         ),
       ),
     );

@@ -3,6 +3,8 @@
 //     final cliente = clienteFromJson(jsonString);
 import 'dart:convert';
 
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+
 Cliente clienteFromJson(String str) => Cliente.fromJson(json.decode(str));
 
 String clienteToJson(Cliente data) => json.encode(data.toJson());
@@ -32,7 +34,8 @@ class Cliente {
   int estado;
   int tipo;
 
-  factory Cliente.fromJson(Map<String, dynamic> json) => Cliente(
+  factory Cliente.fromJson(Map<String, dynamic> json) =>
+      Cliente(
         id: json['id'] as int,
         nombre: json['nombre'] as String,
         rut: json['rut'] as String,
@@ -45,7 +48,8 @@ class Cliente {
         tipo: json['tipo'] as int,
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
         'id': id,
         'nombre': nombre,
         'rut': rut,
@@ -58,7 +62,8 @@ class Cliente {
         'tipo': tipo,
       };
 
-  Map<String, dynamic> createToJson() => {
+  Map<String, dynamic> createToJson() =>
+      {
         'nombre': nombre,
         'rut': rut,
         'correo': correo,
@@ -93,8 +98,20 @@ class Cliente {
     }
   }
 
+  String get formattedRUT {
+    var mask = MaskTextInputFormatter(
+        mask: '##.###.###-#', filter: {'#': RegExp(r'[0-9]|k')});
+    if (rut.length >= 9) {
+      return mask.maskText(rut);
+    }
+    mask.updateMask(mask: '#.###.###-#',filter: {'#': RegExp(r'[0-9]|k')});
+    return mask.maskText(rut);
+  }
+
   @override
   String toString() {
-    return 'Instancia de Cliente: $nombre - $rut - ${tipo == 1 ? 'Mayorista' : 'Minorista'}';
+    return 'Instancia de Cliente: $nombre - $rut - ${tipo == 1
+        ? 'Mayorista'
+        : 'Minorista'}';
   }
 }

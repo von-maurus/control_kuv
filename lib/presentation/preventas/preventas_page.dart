@@ -266,7 +266,7 @@ class _ShoppingCartProduct extends StatelessWidget {
                             padding: const EdgeInsets.all(5.0),
                             child: Image.network(
                               product.imagen,
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fitHeight,
                               height: MediaQuery.of(context).size.height * 0.4,
                             ),
                           ),
@@ -284,6 +284,7 @@ class _ShoppingCartProduct extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 18.0,
                               fontWeight: FontWeight.w500,
+                              color: KuveColors.kuveMorado,
                             ),
                             textAlign: TextAlign.start,
                           ),
@@ -319,8 +320,10 @@ class _ShoppingCartProduct extends StatelessWidget {
                                   preSaleCart.quantity.toString(),
                                   maxLines: 1,
                                   style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.w500),
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w500,
+                                    color: KuveColors.kuveMorado,
+                                  ),
                                   textAlign: TextAlign.center,
                                 ),
                               ),
@@ -355,7 +358,7 @@ class _ShoppingCartProduct extends StatelessWidget {
                   backgroundColor: KuveColors.pink,
                   child: Icon(
                     Icons.delete_outline,
-                    color: Colors.white70,
+                    color: KuveColors.kuveMorado,
                     size: 25.5,
                   ),
                 ),
@@ -387,7 +390,7 @@ class _ShoppingCartProduct extends StatelessWidget {
                           padding: const EdgeInsets.all(5.0),
                           child: Image.network(
                             product.imagen,
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fitHeight,
                           ),
                         ),
                       ),
@@ -402,8 +405,9 @@ class _ShoppingCartProduct extends StatelessWidget {
                           product.nombre,
                           maxLines: 1,
                           style: TextStyle(
-                            fontSize: 18.0,
+                            fontSize: 17.0,
                             fontWeight: FontWeight.w500,
+                            color: KuveColors.kuveMorado,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -412,7 +416,7 @@ class _ShoppingCartProduct extends StatelessWidget {
                           maxLines: 1,
                           style: TextStyle(
                             color: Theme.of(context).primaryColor,
-                            fontSize: 25.0,
+                            fontSize: 17.5,
                           ),
                         ),
                         Row(
@@ -439,8 +443,10 @@ class _ShoppingCartProduct extends StatelessWidget {
                                 preSaleCart.quantity.toString(),
                                 maxLines: 1,
                                 style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.w500),
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.w500,
+                                  color: KuveColors.kuveMorado,
+                                ),
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -475,7 +481,7 @@ class _ShoppingCartProduct extends StatelessWidget {
                 backgroundColor: KuveColors.pink,
                 child: Icon(
                   Icons.delete_outline,
-                  color: Colors.white70,
+                  color: KuveColors.kuveMorado,
                   size: 25.5,
                 ),
               ),

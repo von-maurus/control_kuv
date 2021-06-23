@@ -23,6 +23,7 @@ class SplashSmall extends StatelessWidget {
     return ScaffoldMessenger(
       key: scaffoldKey,
       child: Scaffold(
+        appBar: AppBar(toolbarHeight: 0),
         body: Center(
           child: Container(
             child: Column(

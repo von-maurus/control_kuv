@@ -31,7 +31,7 @@ class ProductosBLoC extends ChangeNotifier {
       notifyListeners();
       final result = await apiRepositoryInterface.getProducts();
       productList = result;
-      print('LISTA PRODUCTOS $productList');
+      print('Cantidad Productos: ${productList.length}');
       productsState = ProductsState.initial;
       notifyListeners();
     } on ProductException catch (_) {

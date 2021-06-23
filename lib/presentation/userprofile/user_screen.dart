@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:control_kuv/presentation/common/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -31,10 +32,13 @@ class UserScreen extends StatelessWidget {
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
           heroTag: 'btnLogout',
-          backgroundColor: Colors.red[600],
+          backgroundColor: Colors.redAccent,
           elevation: 10,
           onPressed: () => _showMyDialog(context),
-          child: Icon(Icons.logout),
+          child: Icon(
+            Icons.logout,
+            color: KuveColors.kuveMorado,
+          ),
         ),
         appBar: AppBar(
           toolbarHeight: 41.0,
@@ -46,9 +50,11 @@ class UserScreen extends StatelessWidget {
             if (snapshot.connectionState != ConnectionState.done) {
               return Container();
             }
+
             ///TODO: Checar tipo de usuario e info retornada
             //SOLVED: Solucion parcial ya que no es eficiente debido a las transformaciones)
-            var user = Usuario.fromJson(json.decode(json.encode(snapshot.data)));
+            var user =
+                Usuario.fromJson(json.decode(json.encode(snapshot.data)));
             return ListView(
               children: [
                 Stack(
@@ -63,15 +69,15 @@ class UserScreen extends StatelessWidget {
                               child: user.imagen.isEmpty
                                   ? ClipOval(
                                       child: SvgPicture.asset(placeholderImage,
-                                          color: Theme.of(context).accentColor,
+                                          color: Theme.of(context).buttonColor,
                                           height: 85,
-                                          width: 85
-                                          // color: Colors.blue[900],
+                                          width: 85,
                                           ),
                                     )
                                   : CircleAvatar(
                                       radius: 65.0,
-                                      backgroundImage: NetworkImage(user.imagen),
+                                      backgroundImage:
+                                          NetworkImage(user.imagen),
                                     ),
                             ),
                           ),
@@ -82,7 +88,9 @@ class UserScreen extends StatelessWidget {
                         Text(
                           user.nombre,
                           style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 20),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                              color: KuveColors.kuveMorado),
                           textAlign: TextAlign.center,
                         ),
                         Padding(
@@ -157,13 +165,16 @@ class UserScreen extends StatelessWidget {
             onPressed: () async {
               await logout(context);
             },
-            child: Text('Si'),
+            child: Text(
+              'Si',
+              style: TextStyle(fontSize: 18.0),
+            ),
           ),
           TextButton(
             style:
                 ButtonStyle(shape: MaterialStateProperty.all(StadiumBorder())),
             onPressed: () => Navigator.of(context).pop(),
-            child: Text('No'),
+            child: Text('No', style: TextStyle(fontSize: 18.0)),
           )
         ],
       ),
@@ -188,7 +199,7 @@ class _UserInfo extends StatelessWidget {
       child: Column(
         children: [
           Card(
-            color: Colors.white54,
+            color: Colors.grey.shade200,
             shadowColor: Colors.black,
             margin: EdgeInsets.only(top: 20, left: 20, right: 20),
             child: Container(
@@ -217,28 +228,28 @@ class _UserInfo extends StatelessWidget {
                     children: <Widget>[
                       ListTile(
                         leading: Icon(Icons.person),
-                        title: Text('Usuario'),
-                        subtitle: Text(user.username),
-                        tileColor: Colors.white54,
+                        title: Text('Usuario',style: TextStyle(color: KuveColors.kuveMorado),),
+                        subtitle: Text(user.username,style: TextStyle(fontWeight: FontWeight.bold)),
+                        // tileColor: Colors.white54,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0)),
                       ),
                       ListTile(
                         leading: Icon(Icons.email),
-                        title: Text('Correo'),
-                        subtitle: Text(user.correo),
+                        title: Text('Correo',style: TextStyle(color: KuveColors.kuveMorado),),
+                        subtitle: Text(user.correo,style: TextStyle(fontWeight: FontWeight.bold)),
                       ),
                       ListTile(
                           leading: Icon(Icons.phone),
-                          title: Text('Teléfono'),
-                          subtitle: Text('+' + user.fono!),
-                          tileColor: Colors.white54,
+                          title: Text('Teléfono',style: TextStyle(color: KuveColors.kuveMorado),),
+                          subtitle: Text('+' + user.fono!, style: TextStyle(fontWeight: FontWeight.bold),),
+                          // tileColor: Colors.white54,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0))),
                       ListTile(
                         leading: Icon(Icons.monetization_on),
-                        title: Text('Comisión'),
-                        subtitle: Text(user.comision.toString() + '%'),
+                        title: Text('Comisión',style: TextStyle(color: KuveColors.kuveMorado),),
+                        subtitle: Text(user.comision.toString() + '%',style: TextStyle(fontWeight: FontWeight.bold)),
                       ),
                     ],
                   ))

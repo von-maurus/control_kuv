@@ -1,4 +1,5 @@
 import 'package:control_kuv/presentation/common/rounded_button.dart';
+import 'package:control_kuv/presentation/common/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:control_kuv/presentation/clientes/clientes_bloc.dart';
 
@@ -118,6 +119,7 @@ class CustomForm extends StatelessWidget {
             value: clientsBLoC.numDiasCuota,
             elevation: 10,
             isExpanded: true,
+            dropdownColor: KuveColors.kuveVerdeLessOp,
             items: [
               DropdownMenuItem<int>(
                 value: 4,
@@ -195,6 +197,7 @@ class CustomForm extends StatelessWidget {
             value: clientsBLoC.clientType,
             elevation: 10,
             isExpanded: true,
+            dropdownColor: KuveColors.kuveVerdeLessOp,
             items: [
               DropdownMenuItem<int>(
                 value: 3,
@@ -253,13 +256,17 @@ class CustomForm extends StatelessWidget {
     return Column(
       children: [
         TextFormField(
+          style: TextStyle(color: KuveColors.kuveMorado),
           textInputAction: TextInputAction.next,
           onChanged: (String value) {
             clientsBLoC.changeName(value);
           },
           keyboardType: TextInputType.name,
           decoration: InputDecoration(
-            prefixIcon: Icon(Icons.person),
+            prefixIcon: Icon(
+              Icons.person,
+              color: Theme.of(context).iconTheme.color,
+            ),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
             labelText: 'Nombre',
             errorText: clientsBLoC.nombre.error,
@@ -269,6 +276,7 @@ class CustomForm extends StatelessWidget {
           height: 25,
         ),
         TextFormField(
+          style: TextStyle(color: KuveColors.kuveMorado),
           textInputAction: TextInputAction.next,
           inputFormatters: [maskFormatter],
           onChanged: (String value) {
@@ -281,7 +289,10 @@ class CustomForm extends StatelessWidget {
           },
           keyboardType: TextInputType.text,
           decoration: InputDecoration(
-            prefixIcon: Icon(Icons.person_search_rounded),
+            prefixIcon: Icon(
+              Icons.person_search_rounded,
+              color: Theme.of(context).iconTheme.color,
+            ),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
             labelText: 'RUT',
             hintText: '90.000.000-0',
@@ -292,10 +303,14 @@ class CustomForm extends StatelessWidget {
           height: 25,
         ),
         TextFormField(
+          style: TextStyle(color: KuveColors.kuveMorado),
           textInputAction: TextInputAction.next,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            prefixIcon: Icon(Icons.alternate_email),
+            prefixIcon: Icon(
+              Icons.alternate_email,
+              color: Theme.of(context).iconTheme.color,
+            ),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
             labelText: 'Correo',
             hintText: 'example@mail.com',
@@ -309,10 +324,12 @@ class CustomForm extends StatelessWidget {
           height: 25,
         ),
         TextFormField(
+          style: TextStyle(color: KuveColors.kuveMorado),
           textInputAction: TextInputAction.next,
           keyboardType: TextInputType.streetAddress,
           decoration: InputDecoration(
-            prefixIcon: Icon(Icons.location_on_rounded),
+            prefixIcon: Icon(Icons.location_on_rounded,
+                color: Theme.of(context).iconTheme.color),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
             labelText: 'Dirección',
             errorText: clientsBLoC.direccion.error,
@@ -325,10 +342,12 @@ class CustomForm extends StatelessWidget {
           height: 25,
         ),
         TextFormField(
+          style: TextStyle(color: KuveColors.kuveMorado),
           textInputAction: TextInputAction.next,
           keyboardType: TextInputType.phone,
           decoration: InputDecoration(
-            prefixIcon: Icon(Icons.phone),
+            prefixIcon:
+                Icon(Icons.phone, color: Theme.of(context).iconTheme.color),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
             labelText: 'Teléfono',
             hintText: 'Ej: 56987766554',
@@ -358,6 +377,7 @@ class CustomForm extends StatelessWidget {
                 ),
               ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Flexible(
               flex: 1,
@@ -365,10 +385,13 @@ class CustomForm extends StatelessWidget {
                 title: Text(
                   'Efectivo',
                   maxLines: 1,
-                  style: TextStyle(fontSize: 18.5),
+                  style:
+                      TextStyle(fontSize: 15.0, color: KuveColors.kuveMorado),
                   textAlign: TextAlign.left,
                 ),
                 leading: Radio(
+                  fillColor: MaterialStateProperty.all(KuveColors.kuveMorado),
+                  activeColor: Theme.of(context).accentColor,
                   value: '1',
                   groupValue: clientsBLoC.tipoPago.value,
                   onChanged: (value) {
@@ -383,8 +406,12 @@ class CustomForm extends StatelessWidget {
             Flexible(
               flex: 1,
               child: ListTile(
-                title: Text('Crédito', style: TextStyle(fontSize: 18.5)),
+                title: Text('Crédito',
+                    style: TextStyle(
+                        fontSize: 15.0, color: KuveColors.kuveMorado)),
                 leading: Radio(
+                  fillColor: MaterialStateProperty.all(KuveColors.kuveMorado),
+                  activeColor: Theme.of(context).accentColor,
                   value: '2',
                   groupValue: clientsBLoC.tipoPago.value,
                   onChanged: (value) {
@@ -428,11 +455,11 @@ class CustomForm extends StatelessWidget {
           size: size,
           onPressed: () {
             if (!clientsBLoC.isValid) {
-              clientsBLoC.changeName(clientsBLoC.nombre.value!);
-              clientsBLoC.changeRUN(clientsBLoC.rut.value!);
-              clientsBLoC.changeEmail(clientsBLoC.correo.value!);
-              clientsBLoC.changeAddress(clientsBLoC.direccion.value!);
-              clientsBLoC.changePhone(clientsBLoC.fono.value!);
+              clientsBLoC.changeName(clientsBLoC.nombre.value);
+              clientsBLoC.changeRUN(clientsBLoC.rut.value);
+              clientsBLoC.changeEmail(clientsBLoC.correo.value);
+              clientsBLoC.changeAddress(clientsBLoC.direccion.value);
+              clientsBLoC.changePhone(clientsBLoC.fono.value);
             } else {
               onSubmit(context);
             }

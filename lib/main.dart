@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:control_kuv/main_bloc.dart';
@@ -20,13 +19,13 @@ class ControlKuv extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsFlutterBinding.ensureInitialized();
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: KuveColors.kuveMorado,
-        statusBarIconBrightness: Brightness.light,
-        systemNavigationBarIconBrightness: Brightness.light,
-      ),
-    );
+    // SystemChrome.setSystemUIOverlayStyle(
+    //   SystemUiOverlayStyle(
+    //     statusBarColor: KuveColors.kuveMorado,
+    //     statusBarIconBrightness: Brightness.light,
+    //     systemNavigationBarIconBrightness: Brightness.light,
+    //   ),
+    // );
     return MultiProvider(
       providers: [
         Provider<ApiRepositoryInterface>(

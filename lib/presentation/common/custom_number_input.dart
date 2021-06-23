@@ -1,3 +1,4 @@
+import 'package:control_kuv/presentation/common/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -44,18 +45,25 @@ class CustomNumberInput extends StatelessWidget {
       keyboardType: TextInputType.number,
       validator: numberValidator,
       maxLines: 1,
+      autofocus: true,
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,
         _NumericTextFormatter(),
       ],
       decoration: InputDecoration(
+        filled: true,
         labelText: label,
         labelStyle: labelTextStyle,
         hintText: hint,
         errorStyle: TextStyle(fontSize: 10.0),
         fillColor: Colors.white,
-        prefixIcon: Icon(FontAwesomeIcons.boxes, size: 28.0),
+        prefixIcon: Icon(
+          FontAwesomeIcons.boxes,
+          size: 28.0,
+          color: KuveColors.kuveMorado,
+        ),
         border: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red, style: BorderStyle.solid),
           borderRadius: BorderRadius.circular(15.0),
         ),
         //fillColor: Colors.green

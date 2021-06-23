@@ -1,3 +1,4 @@
+import 'package:control_kuv/presentation/common/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:control_kuv/domain/models/cliente.dart';
@@ -16,7 +17,6 @@ class ClientesScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white70,
         floatingActionButton: buildFloatingActionButton(context),
         appBar: buildAppBar(context, clientsBloc, preSaleBloc),
         body: clientsBloc.clientList.isNotEmpty
@@ -76,7 +76,6 @@ class ClientesScreen extends StatelessWidget {
                         },
                       );
                     }
-                    print('Lista de clientes: ${clientsBloc.clientList}');
                     return GridView.builder(
                       itemCount: clientsBloc.clientList.length,
                       physics: BouncingScrollPhysics(
@@ -159,7 +158,6 @@ class ClientesScreen extends StatelessWidget {
       context: context,
       barrierDismissible: false,
       builder: (_) => AlertDialogPage(
-        title: Text('Aviso'),
         oldContext: _,
         content: Text(
           '\n¿Confirma agregar al cliente\n\"${client.nombre}\" \nen la Pre-Venta?',
@@ -264,7 +262,7 @@ class ClientesScreen extends StatelessWidget {
           top: 25),
       elevation: 15,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-      color: Colors.white70,
+      color: KuveColors.white,
       child: Padding(
         padding: const EdgeInsets.all(14.0),
         child: Stack(
@@ -276,7 +274,11 @@ class ClientesScreen extends StatelessWidget {
                   client.nombre,
                   maxLines: 1,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0,
+                    color: KuveColors.blue,
+                  ),
                 ),
                 Text(
                   client.tipoChanged,
@@ -285,6 +287,7 @@ class ClientesScreen extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 16.0,
+                    color: KuveColors.blue,
                     fontStyle: FontStyle.italic,
                   ),
                 ),
@@ -309,6 +312,7 @@ class ClientesScreen extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 14.5,
                           letterSpacing: .3,
+                          color: KuveColors.blue,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -331,17 +335,14 @@ class ClientesScreen extends StatelessWidget {
                     SizedBox(
                       width: 5,
                     ),
-                    client.tipopago == 1
-                        ? Text('Efectivo',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 14.5,
-                                letterSpacing: .3))
-                        : Text('Crédito',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 14.5,
-                                letterSpacing: .3)),
+                    Text(
+                      client.tipopago == 1 ? 'Efectivo' : 'Crédito',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: KuveColors.blue,
+                          fontSize: 14.5,
+                          letterSpacing: .3),
+                    ),
                   ],
                 ),
                 client.tipopago == 1
@@ -358,14 +359,18 @@ class ClientesScreen extends StatelessWidget {
                                 width: 5,
                               ),
                               Flexible(
-                                child: Text('${client.numDias} Días a pagar',
-                                    overflow: TextOverflow.ellipsis,
-                                    softWrap: true,
-                                    maxLines: 2,
-                                    style: TextStyle(
-                                        fontSize: 14.5,
-                                        letterSpacing: .3,
-                                        fontWeight: FontWeight.w400)),
+                                child: Text(
+                                  '${client.numDias} Días a pagar',
+                                  overflow: TextOverflow.ellipsis,
+                                  softWrap: true,
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                    fontSize: 14.5,
+                                    letterSpacing: .3,
+                                    color: KuveColors.blue,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
                               )
                             ],
                           )
@@ -393,7 +398,8 @@ class ClientesScreen extends StatelessWidget {
       PreSaleBLoC preSaleBloc) async {
     final cliente = await showSearch(
         context: context,
-        delegate: ClientSearchDelegate('Buscar cliente',
+        delegate: ClientSearchDelegate('Nombre - RUT - Email',
+            TextStyle(fontSize: 16.0, color: KuveColors.white),
             clientesBLoC: clientsBloc, preSaleBLoC: preSaleBloc));
     if (cliente!.id != 0) {
       //TODO: Guardar historial de busqueda en SharedPreferences localmente

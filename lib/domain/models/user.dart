@@ -18,7 +18,7 @@ class Usuario {
     required this.tipo,
     this.fono,
     this.comision = 0,
-    this.imagen,
+    this.imagen = '',
     required this.estado,
   });
 
@@ -29,7 +29,7 @@ class Usuario {
   int tipo;
   String? fono;
   int? comision;
-  String? imagen;
+  String imagen;
   int estado;
 
   factory Usuario.fromJson(Map<String, dynamic> json) => Usuario(

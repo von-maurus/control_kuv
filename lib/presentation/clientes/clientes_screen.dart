@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'client_search_delegate.dart';
-import 'cliente_create.dart';
 import 'package:control_kuv/domain/models/cliente.dart';
 import 'package:control_kuv/presentation/clientes/clientes_bloc.dart';
 import 'package:control_kuv/presentation/common/alert_dialog.dart';
 import 'package:control_kuv/presentation/common/kuve_button.dart';
 import 'package:control_kuv/presentation/preventas/preventas_bloc.dart';
+import 'client_search_delegate.dart';
+import 'cliente_create.dart';
 
 class ClientesScreen extends StatelessWidget {
   @override
@@ -14,7 +14,6 @@ class ClientesScreen extends StatelessWidget {
     final clientsBloc = context.watch<ClientesBLoC>();
     final preSaleBloc = context.watch<PreSaleBLoC>();
     final size = MediaQuery.of(context).size;
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white70,
@@ -117,16 +116,9 @@ class ClientesScreen extends StatelessWidget {
   AppBar buildAppBar(
       BuildContext context, ClientesBLoC clientsBloc, PreSaleBLoC preSaleBloc) {
     return AppBar(
-      centerTitle: true,
       elevation: 6.0,
-      title: Text(
-        'Clientes',
-        style: TextStyle(
-          fontSize: 25.0,
-        ),
-      ),
-      backgroundColor: Colors.blue[900],
-      toolbarHeight: 42.0,
+      title: Text('Clientes'),
+      toolbarHeight: 45.0,
       actions: [
         IconButton(
           icon: Icon(
@@ -147,7 +139,6 @@ class ClientesScreen extends StatelessWidget {
     return FloatingActionButton(
       heroTag: 'btnCreateClient',
       elevation: 25,
-      backgroundColor: Colors.blue[700],
       onPressed: () async {
         final client = await Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => ClientCreate()));
@@ -404,7 +395,7 @@ class ClientesScreen extends StatelessWidget {
         context: context,
         delegate: ClientSearchDelegate('Buscar cliente',
             clientesBLoC: clientsBloc, preSaleBLoC: preSaleBloc));
-    if (cliente != null) {
+    if (cliente!.id != 0) {
       //TODO: Guardar historial de busqueda en SharedPreferences localmente
       if (!clientsBloc.historial.any((element) => element.id == cliente.id)) {
         if (clientsBloc.historial.length >= 10) {

@@ -43,7 +43,7 @@ class BottomNavBarSmall extends StatelessWidget {
                   splashRadius: _splashRadius,
                   icon: Icon(
                     Icons.store_mall_directory,
-                    color: index == 0 ? KuveColors.white : Colors.black87,
+                    color: index == 0 ? KuveColors.kuveVerde : KuveColors.white,
                   ),
                   onPressed: () => onIndexSelected(0),
                 ),
@@ -54,7 +54,8 @@ class BottomNavBarSmall extends StatelessWidget {
                   splashRadius: _splashRadius,
                   splashColor: Colors.transparent,
                   icon: Icon(Icons.people,
-                      color: index == 1 ? KuveColors.white : Colors.black87),
+                      color:
+                          index == 1 ? KuveColors.kuveVerde : KuveColors.white),
                   onPressed: () => onIndexSelected(1),
                 ),
               ),
@@ -63,16 +64,16 @@ class BottomNavBarSmall extends StatelessWidget {
                 child: Stack(
                   children: [
                     CircleAvatar(
-                      backgroundColor: Colors.orange[700],
+                      backgroundColor: index == 2
+                          ? KuveColors.kuveVerdeLessOp
+                          : KuveColors.white,
                       radius: 25.0,
                       child: IconButton(
                         splashColor: Colors.transparent,
                         icon: Icon(
                           Icons.shopping_basket,
                           size: 32.0,
-                          color: index == 2
-                              ? KuveColors.white
-                              : Colors.purple[500],
+                          color: KuveColors.kuveMorado,
                         ),
                         onPressed: () => onIndexSelected(2),
                       ),
@@ -97,19 +98,21 @@ class BottomNavBarSmall extends StatelessWidget {
               ),
               InkWell(
                 onTap: () => onIndexSelected(3),
-                child: user.imagen!.isEmpty
+                child: user.imagen.isEmpty
                     ? ClipOval(
                         child: SvgPicture.asset(
                           'assets/icons/profile-user.svg',
                           height: 45,
                           width: 45,
-                          color: Colors.orange,
+                          color: index == 3
+                              ? KuveColors.kuveVerdeLessOp
+                              : KuveColors.white,
                         ),
                       )
                     : CircleAvatar(
                         radius: 24.0,
                         backgroundImage: NetworkImage(
-                          user.imagen!,
+                          user.imagen,
                         ),
                       ),
               ),

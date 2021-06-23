@@ -14,13 +14,7 @@ class ClientCreate extends StatelessWidget {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        centerTitle: true,
-        elevation: 6.0,
-        title: Text(
-          'Crear nuevo cliente',
-          style: TextStyle(letterSpacing: 1.0, fontSize: 25.0),
-        ),
-        backgroundColor: Colors.blue[900],
+        title: Text('Registre a su cliente'),
         leading: IconButton(
           icon: Platform.isAndroid
               ? Icon(

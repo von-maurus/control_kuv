@@ -21,6 +21,9 @@ class ProductosBLoC extends ChangeNotifier {
   List<Producto> historial = [];
   var productsState = ProductsState.initial;
   int cantidadProducto = 1;
+  final editCantidadController = TextEditingController(text: '1');
+  final FocusNode editCantidadFocusNode = FocusNode();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   Future<void> loadProducts() async {
     try {
@@ -45,5 +48,10 @@ class ProductosBLoC extends ChangeNotifier {
     } on ProductException catch (e) {
       print(e);
     }
+  }
+
+  void updateNumberSelector(int cantidad) {
+    cantidadProducto = cantidad;
+    notifyListeners();
   }
 }

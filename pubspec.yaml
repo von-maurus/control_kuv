@@ -14,16 +14,17 @@ dependencies:
   flutter_localizations: # Add this line
     sdk: flutter         # Add this line
 
-  cupertino_icons: ^1.0.2
+  cupertino_icons: 1.0.2
   provider: 5.0.0
-  google_fonts: ^2.1.0
-  flutter_svg: ^0.22.0
-  shared_preferences: ^2.0.6
-  http: ^0.13.3
-  numberpicker: ^2.1.1
-  mask_text_input_formatter: ^2.0.0
-  intl: ^0.17.0
+  google_fonts: 2.1.0
+  flutter_svg: 0.22.0
+  shared_preferences: 2.0.6
+  http: 0.13.3
+  numberpicker: 2.0.0
+  mask_text_input_formatter: 2.0.0
+  intl: 0.17.0
   ndialog: ^4.1.0
+  font_awesome_flutter: 9.1.0
 
 dev_dependencies:
   flutter_test:

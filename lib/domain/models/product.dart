@@ -19,7 +19,7 @@ class Producto {
     this.descripcion = 'Sin descripción',
     required this.preciocompra,
     required this.precioventa,
-    this.imagen,
+    this.imagen = '',
     required this.stock,
     this.stockminimo,
     required this.impuestoProductos,
@@ -31,7 +31,7 @@ class Producto {
   String descripcion;
   int preciocompra;
   int precioventa;
-  String? imagen;
+  String imagen;
   int stock;
   int? stockminimo;
   List<ImpuestoProducto>? impuestoProductos;

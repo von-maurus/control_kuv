@@ -76,7 +76,7 @@ class LocalRepositoryImpl extends LocalRepositoryInterface {
     await sharedPreferences.setInt(_prefTipo, usuario.tipo);
     await sharedPreferences.setString(_prefFono, usuario.fono!);
     await sharedPreferences.setInt(_prefComision, usuario.comision!);
-    await sharedPreferences.setString(_prefImage, usuario.imagen!);
+    await sharedPreferences.setString(_prefImage, usuario.imagen);
     await sharedPreferences.setString(_prefEmail, usuario.correo);
     await sharedPreferences.setInt(_prefEstado, usuario.estado);
     return usuario;

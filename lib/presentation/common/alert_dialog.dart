@@ -12,7 +12,7 @@ class AlertDialogPage extends StatelessWidget {
     required this.oldContext,
     required this.content,
     required this.actions,
-    this.title = const Text('Aviso'),
+    this.title = const Center(child: Text('Aviso')),
   });
 
   @override

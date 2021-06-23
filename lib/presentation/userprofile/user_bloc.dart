@@ -14,9 +14,9 @@ class ProfileBLoC extends ChangeNotifier {
   final switchNotifier = ValueNotifier<bool>(false);
 
   void loadTheme() async {
-    isDark = await localRepositoryInterface.getTheme() ?? false;
-    switchNotifier.value = isDark;
-    notifyListeners();
+    // isDark = await localRepositoryInterface.getTheme() ?? false;
+    // switchNotifier.value = isDark;
+    // notifyListeners();
   }
 
   void updateTheme(bool isDarkValue) {

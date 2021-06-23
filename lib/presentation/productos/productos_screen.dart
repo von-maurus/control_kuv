@@ -1,8 +1,8 @@
+import 'package:control_kuv/presentation/common/custom_number_input.dart';
 import 'package:control_kuv/presentation/common/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:numberpicker/numberpicker.dart';
 
 import 'item-product.dart';
 import 'package:control_kuv/domain/models/product.dart';
@@ -56,8 +56,8 @@ class ProductosScreen extends StatelessWidget {
                         ? size.width >= 600.0
                             ? 0.5 / MediaQuery.textScaleFactorOf(context)
                             : 0.6 / MediaQuery.textScaleFactorOf(context)
-                        : 0.4 / MediaQuery.textScaleFactorOf(context),
-                    crossAxisSpacing: 20.0,
+                        : 0.45 / MediaQuery.textScaleFactorOf(context),
+                    crossAxisSpacing: 30.0,
                     mainAxisSpacing: 20.0,
                   ),
                   physics: BouncingScrollPhysics(
@@ -69,89 +69,8 @@ class ProductosScreen extends StatelessWidget {
                       size: size,
                       product: product,
                       onTap: () async {
-                        if (product.stock == 0) {
-                          return showDialog(
-                            context: context,
-                            builder: (_) => AlertDialogPage(
-                              oldContext: _,
-                              title: Center(
-                                child: Text(
-                                  'Alerta',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 25.0),
-                                ),
-                              ),
-                              content: Text(
-                                'El producto se encuentra SIN STOCK. Por favor, notifique a su administrador.',
-                                style: TextStyle(fontSize: 18.5),
-                                textAlign: TextAlign.center,
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Text(
-                                    'Aceptar',
-                                    style: TextStyle(fontSize: 17.0),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-                        if (product.stockminimo != null) {
-                          if (product.stock <= product.stockminimo!) {
-                            return showDialog(
-                                context: context,
-                                builder: (_) => AlertDialogPage(
-                                      oldContext: _,
-                                      title: Center(
-                                        child: Text(
-                                          'Advertencia',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 25.0),
-                                        ),
-                                      ),
-                                      content: Text(
-                                        'El producto se encuentra con Stock Mínimo. Por favor, notifique a su administrador',
-                                        style: TextStyle(fontSize: 18.5),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      actions: [
-                                        TextButton(
-                                          style: ButtonStyle(
-                                              shape: MaterialStateProperty.all(
-                                                  StadiumBorder())),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                            _showNumberPicker(context, product,
-                                                productsBloc, preSaleBLoC);
-                                          },
-                                          child: Text(
-                                            'Seguir...',
-                                            style: TextStyle(fontSize: 17.0),
-                                          ),
-                                        ),
-                                        TextButton(
-                                          style: ButtonStyle(
-                                              shape: MaterialStateProperty.all(
-                                                  StadiumBorder())),
-                                          onPressed: () async =>
-                                              Navigator.of(context).pop(),
-                                          child: Text(
-                                            'Volver',
-                                            style: TextStyle(fontSize: 17.0),
-                                          ),
-                                        ),
-                                      ],
-                                    ));
-                          }
-                        }
-                        return await _showNumberPicker(
-                            context, product, productsBloc, preSaleBLoC);
+                        return await _addProduct(
+                            product, context, productsBloc, preSaleBLoC);
                       },
                     );
                   },
@@ -159,27 +78,97 @@ class ProductosScreen extends StatelessWidget {
               )
             : Center(
                 child: CircularProgressIndicator(
-                  backgroundColor: Colors.black45,
-                ),
+                    backgroundColor: KuveColors.kuveMorado),
               ),
       ),
     );
   }
 
+  Future<dynamic> _addProduct(Producto product, BuildContext context,
+      ProductosBLoC productsBloc, PreSaleBLoC preSaleBLoC) async {
+    if (product.stock == 0) {
+      return showDialog(
+        context: context,
+        builder: (_) => AlertDialogPage(
+          oldContext: _,
+          title: Center(
+            child: Text(
+              'Alerta',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0),
+            ),
+          ),
+          content: Text(
+            'El producto se encuentra SIN STOCK. Por favor, notifique a su administrador.',
+            style: TextStyle(fontSize: 18.5),
+            textAlign: TextAlign.center,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Aceptar',
+                style: TextStyle(fontSize: 17.0),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    if (product.stockminimo != null) {
+      if (product.stock <= product.stockminimo!) {
+        return showDialog(
+          context: context,
+          builder: (_) => AlertDialogPage(
+            oldContext: _,
+            title: Center(
+              child: Text(
+                'Advertencia',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0),
+              ),
+            ),
+            content: Text(
+              'El producto se encuentra con Stock Mínimo. Por favor, notifique a su administrador',
+              style: TextStyle(fontSize: 18.5),
+              textAlign: TextAlign.center,
+            ),
+            actions: [
+              TextButton(
+                style: ButtonStyle(
+                    shape: MaterialStateProperty.all(StadiumBorder())),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _showNumberPicker(
+                      context, product, productsBloc, preSaleBLoC);
+                },
+                child: Text(
+                  'Seguir...',
+                  style: TextStyle(fontSize: 17.0),
+                ),
+              ),
+              TextButton(
+                style: ButtonStyle(
+                    shape: MaterialStateProperty.all(StadiumBorder())),
+                onPressed: () async => Navigator.of(context).pop(),
+                child: Text(
+                  'Volver',
+                  style: TextStyle(fontSize: 17.0),
+                ),
+              ),
+            ],
+          ),
+        );
+      }
+    }
+    return await _showNumberPicker(context, product, productsBloc, preSaleBLoC);
+  }
+
   AppBar buildAppBarProducts(BuildContext context, ProductosBLoC productsBloc,
       PreSaleBLoC preSaleBLoC) {
     return AppBar(
-      centerTitle: true,
-      elevation: 6.0,
-      backgroundColor: KuveColors.kuveMorado,
       toolbarHeight: 42.0,
-      title: Text(
-        'Productos',
-        style: TextStyle(
-          fontSize: 25.0,
-          color: Theme.of(context).canvasColor,
-        ),
-      ),
+      title: Text('Productos'),
       actions: [
         IconButton(
           color: Theme.of(context).canvasColor,
@@ -191,10 +180,10 @@ class ProductosScreen extends StatelessWidget {
           onPressed: () async {
             final product = await showSearch(
               context: context,
-              delegate: ProductSearchDelegate('Buscar producto',
+              delegate: ProductSearchDelegate('Buscar por: Nombre y Código',
                   productosBLoC: productsBloc, preSaleBLoC: preSaleBLoC),
             );
-            if (product != null) {
+            if (product!.id != 0) {
               //TODO: Guardar historial de busqueda en SharedPreferences localmente
               if (!productsBloc.historial
                   .any((element) => element.id == product.id)) {
@@ -219,25 +208,29 @@ class ProductosScreen extends StatelessWidget {
       barrierDismissible: false,
       builder: (_) => AlertDialogPage(
         oldContext: _,
-        title: Center(
-          child: Text('Seleccione la cantidad'),
-        ),
-        content: NumberPicker(
-          itemCount: 4,
-          minValue: 1,
-          value: productsBLoC.cantidadProducto,
-          haptics: true,
-          maxValue: product.stock,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30.0),
-            border: Border.all(
-              color: Colors.blue,
-              width: 2,
+        content: Form(
+          key: productsBLoC.formKey,
+          child: CustomNumberInput(
+            minValue: 1,
+            maxValue: product.stock,
+            bloc: productsBLoC,
+            focusNode: productsBLoC.editCantidadFocusNode,
+            textEditingController: productsBLoC.editCantidadController,
+            onChangeInputCantidad: null,
+            textInputAction: TextInputAction.done,
+            hint: 'Ingrese cantidad',
+            label: 'Editar Cantidad',
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.width >= 600.0
+                  ? MediaQuery.of(context).size.width * 0.025
+                  : 15.0,
+            ),
+            labelTextStyle: TextStyle(
+              fontSize: MediaQuery.of(context).size.width >= 600.0
+                  ? MediaQuery.of(context).size.width * 0.025
+                  : 15.0,
             ),
           ),
-          onChanged: (newValue) {
-            productsBLoC.cantidadProducto = newValue;
-          },
         ),
         actions: [
           TextButton(
@@ -245,9 +238,17 @@ class ProductosScreen extends StatelessWidget {
                 ButtonStyle(shape: MaterialStateProperty.all(StadiumBorder())),
             onPressed: () async {
               print('Cantidad:  ${productsBLoC.cantidadProducto}');
-              preSaleBLoC.add(product, productsBLoC.cantidadProducto);
-              productsBLoC.cantidadProducto = 1;
-              Navigator.of(context).pop();
+              print(
+                  'Validado: ${productsBLoC.formKey.currentState!.validate()}');
+              if (productsBLoC.formKey.currentState!.validate()) {
+                preSaleBLoC.add(
+                    product,
+                    int.parse(productsBLoC.editCantidadController.text
+                        .replaceAll(',', '')));
+                productsBLoC.editCantidadController.text = '1';
+                Navigator.of(context).pop();
+              }
+              productsBLoC.editCantidadFocusNode.unfocus();
             },
             child: Text(
               'Agregar',
@@ -258,6 +259,8 @@ class ProductosScreen extends StatelessWidget {
             style:
                 ButtonStyle(shape: MaterialStateProperty.all(StadiumBorder())),
             onPressed: () {
+              productsBLoC.cantidadProducto = 1;
+              productsBLoC.editCantidadController.text = 1.toString();
               Navigator.of(context).pop();
             },
             child: Text(

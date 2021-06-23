@@ -118,7 +118,6 @@ class CustomForm extends StatelessWidget {
             value: clientsBLoC.numDiasCuota,
             elevation: 10,
             isExpanded: true,
-            dropdownColor: Colors.blue[100],
             items: [
               DropdownMenuItem<int>(
                 value: 4,
@@ -196,7 +195,6 @@ class CustomForm extends StatelessWidget {
             value: clientsBLoC.clientType,
             elevation: 10,
             isExpanded: true,
-            dropdownColor: Colors.blue[100],
             items: [
               DropdownMenuItem<int>(
                 value: 3,

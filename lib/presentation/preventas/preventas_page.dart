@@ -23,15 +23,14 @@ class PreSalePage extends StatelessWidget {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.blue[900],
             toolbarHeight:
                 MediaQuery.of(context).orientation == Orientation.portrait
                     ? 80.0
                     : 53,
-            elevation: 6.0,
             bottom: TabBar(
               indicatorWeight: 6.5,
-              indicatorColor: Colors.blue[200],
+              indicatorColor: KuveColors.kuveVerde,
+              labelColor: KuveColors.white,
               tabs: [
                 MediaQuery.of(context).orientation == Orientation.landscape
                     ? Tab(
@@ -266,7 +265,7 @@ class _ShoppingCartProduct extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: Image.network(
-                              product.imagen!,
+                              product.imagen,
                               fit: BoxFit.cover,
                               height: MediaQuery.of(context).size.height * 0.4,
                             ),
@@ -387,7 +386,7 @@ class _ShoppingCartProduct extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: Image.network(
-                            product.imagen!,
+                            product.imagen,
                             fit: BoxFit.cover,
                           ),
                         ),

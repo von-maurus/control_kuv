@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class KuveColors {
@@ -23,7 +24,12 @@ class KuveColors {
   }
 }
 
-final gradient1 = [KuveColors.purple, KuveColors.blue];
+final gradient1 = [
+  KuveColors.kuveMorado,
+  KuveColors.kuveMorado,
+  // KuveColors.kuveMorado,
+  // KuveColors.kuveVerdeLessOp,
+];
 
 // final _borderLight = OutlineInputBorder(
 //   borderRadius: BorderRadius.circular(10),
@@ -36,15 +42,30 @@ final gradient1 = [KuveColors.purple, KuveColors.blue];
 
 final lightTheme = ThemeData(
   backgroundColor: KuveColors.white,
-  primarySwatch: Colors.purple,
+  accentColor: KuveColors.kuveMorado,
+  floatingActionButtonTheme:
+      FloatingActionButtonThemeData(backgroundColor: KuveColors.kuveVerde),
   canvasColor: KuveColors.white,
+  appBarTheme: AppBarTheme(
+    titleTextStyle: TextStyle(color: KuveColors.white),
+    toolbarTextStyle: TextStyle(color: KuveColors.white),
+    iconTheme: IconThemeData(color: KuveColors.white),
+    elevation: 6.0,
+    centerTitle: true,
+    systemOverlayStyle: SystemUiOverlayStyle.dark,
+    backgroundColor: KuveColors.kuveMorado,
+    brightness: Brightness.light,
+    textTheme: TextTheme(
+        headline6: TextStyle(
+      color: KuveColors.white,
+      fontSize: 25.0,
+    )),
+  ),
   primaryIconTheme: IconThemeData(color: KuveColors.kuveMorado),
   primaryColorBrightness: Brightness.light,
-  accentColorBrightness: Brightness.dark,
-  bottomAppBarColor: KuveColors.purple,
   textTheme: GoogleFonts.poppinsTextTheme().apply(
     bodyColor: KuveColors.kuveMorado,
-    displayColor: KuveColors.kuveMorado,
+    displayColor: KuveColors.kuveVerde,
   ),
   // inputDecorationTheme: InputDecorationTheme(
   //   border: _borderLight,

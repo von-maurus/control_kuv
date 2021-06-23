@@ -1,3 +1,4 @@
+import 'package:control_kuv/presentation/common/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,6 @@ class HomePage extends StatelessWidget {
   HomePage._();
 
   static Widget init(BuildContext context) {
-    WidgetsFlutterBinding.ensureInitialized();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
@@ -37,6 +37,7 @@ class HomePage extends StatelessWidget {
       onWillPop: () async => false,
       child: Scaffold(
         extendBodyBehindAppBar: true,
+        extendBody: true,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

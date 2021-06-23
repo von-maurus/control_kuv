@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'dart:io';
+import 'package:control_kuv/presentation/common/custom_number_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -32,24 +33,26 @@ class ProductSearchDelegate extends SearchDelegate<Producto> {
 
   @override
   Widget buildLeading(BuildContext context) {
-    return IconButton(
-      icon: Icon(Platform.isIOS ? Icons.arrow_back_ios : Icons.arrow_back),
-      splashColor: Colors.transparent,
-      onPressed: () async {
-        FocusScope.of(context).unfocus();
-        await Future.delayed(Duration(milliseconds: 100));
-        close(
-          context,
-          Producto(
-              id: 0,
-              nombre: '',
-              codigo: '',
-              preciocompra: 0,
-              precioventa: 0,
-              stock: 0,
-              impuestoProductos: []),
-        );
-      },
+    return SafeArea(
+      child: IconButton(
+        icon: Icon(Platform.isIOS ? Icons.arrow_back_ios : Icons.arrow_back),
+        splashColor: Colors.transparent,
+        onPressed: () async {
+          FocusScope.of(context).unfocus();
+          await Future.delayed(Duration(milliseconds: 100));
+          close(
+            context,
+            Producto(
+                id: 0,
+                nombre: '',
+                codigo: '',
+                preciocompra: 0,
+                precioventa: 0,
+                stock: 0,
+                impuestoProductos: []),
+          );
+        },
+      ),
     );
   }
 
@@ -104,16 +107,16 @@ class ProductSearchDelegate extends SearchDelegate<Producto> {
       itemBuilder: (context, index) {
         final product = productos[index];
         return ListTile(
-          leading: product.imagen != null
+          leading: product.imagen.isNotEmpty
               ? Image(
-                  width: 45,
-                  image: NetworkImage(product.imagen!),
+                  width: 35.0,
+                  image: NetworkImage(product.imagen),
                 )
               : ClipOval(
                   child: SvgPicture.asset(
                     'assets/icons/product-cart.svg',
-                    height: 45,
-                    width: 45,
+                    height: 35.0,
+                    width: 25.0,
                     color: Colors.blue,
                   ),
                 ),
@@ -219,6 +222,158 @@ class ProductSearchDelegate extends SearchDelegate<Producto> {
     );
   }
 
+  Future<dynamic> _addProduct(Producto product, BuildContext context,
+      ProductosBLoC productsBloc, PreSaleBLoC preSaleBLoC) async {
+    if (product.stock == 0) {
+      return showDialog(
+        context: context,
+        builder: (_) => AlertDialogPage(
+          oldContext: _,
+          title: Center(
+            child: Text(
+              'Alerta',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0),
+            ),
+          ),
+          content: Text(
+            'El producto se encuentra SIN STOCK. Por favor, notifique a su administrador.',
+            style: TextStyle(fontSize: 18.5),
+            textAlign: TextAlign.center,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Aceptar',
+                style: TextStyle(fontSize: 17.0),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    if (product.stockminimo != null) {
+      if (product.stock <= product.stockminimo!) {
+        return showDialog(
+          context: context,
+          builder: (_) => AlertDialogPage(
+            oldContext: _,
+            title: Center(
+              child: Text(
+                'Advertencia',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0),
+              ),
+            ),
+            content: Text(
+              'El producto se encuentra con Stock Mínimo. Por favor, notifique a su administrador',
+              style: TextStyle(fontSize: 18.5),
+              textAlign: TextAlign.center,
+            ),
+            actions: [
+              TextButton(
+                style: ButtonStyle(
+                    shape: MaterialStateProperty.all(StadiumBorder())),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _showNumberPicker(
+                      context, product, productsBloc, preSaleBLoC);
+                },
+                child: Text(
+                  'Seguir...',
+                  style: TextStyle(fontSize: 17.0),
+                ),
+              ),
+              TextButton(
+                style: ButtonStyle(
+                    shape: MaterialStateProperty.all(StadiumBorder())),
+                onPressed: () async => Navigator.of(context).pop(),
+                child: Text(
+                  'Volver',
+                  style: TextStyle(fontSize: 17.0),
+                ),
+              ),
+            ],
+          ),
+        );
+      }
+    }
+    return await _showNumberPicker(context, product, productsBloc, preSaleBLoC);
+  }
+
+  Future _showNumberPicker(BuildContext context, Producto product,
+      ProductosBLoC productsBLoC, PreSaleBLoC preSaleBLoC) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => AlertDialogPage(
+        oldContext: _,
+        content: Form(
+          key: productsBLoC.formKey,
+          child: CustomNumberInput(
+            minValue: 1,
+            maxValue: product.stock,
+            bloc: productsBLoC,
+            focusNode: productsBLoC.editCantidadFocusNode,
+            textEditingController: productsBLoC.editCantidadController,
+            onChangeInputCantidad: null,
+            textInputAction: TextInputAction.done,
+            hint: 'Ingrese cantidad',
+            label: 'Editar Cantidad',
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.width >= 600.0
+                  ? MediaQuery.of(context).size.width * 0.025
+                  : 15.0,
+            ),
+            labelTextStyle: TextStyle(
+              fontSize: MediaQuery.of(context).size.width >= 600.0
+                  ? MediaQuery.of(context).size.width * 0.025
+                  : 15.0,
+            ),
+          ),
+        ),
+        actions: [
+          TextButton(
+            style:
+            ButtonStyle(shape: MaterialStateProperty.all(StadiumBorder())),
+            onPressed: () async {
+              print('Cantidad:  ${productsBLoC.cantidadProducto}');
+              print(
+                  'Validado: ${productsBLoC.formKey.currentState!.validate()}');
+              if (productsBLoC.formKey.currentState!.validate()) {
+                preSaleBLoC.add(
+                    product,
+                    int.parse(productsBLoC.editCantidadController.text
+                        .replaceAll(',', '')));
+                productsBLoC.editCantidadController.text = '1';
+                Navigator.of(context).pop();
+              }
+              productsBLoC.editCantidadFocusNode.unfocus();
+            },
+            child: Text(
+              'Agregar',
+              style: TextStyle(fontSize: 17.0),
+            ),
+          ),
+          TextButton(
+            style:
+            ButtonStyle(shape: MaterialStateProperty.all(StadiumBorder())),
+            onPressed: () {
+              productsBLoC.cantidadProducto = 1;
+              productsBLoC.editCantidadController.text = 1.toString();
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              'Cancelar',
+              style: TextStyle(fontSize: 17.0),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Future showSearchDialog(BuildContext context, Producto product) {
     return showDialog(
       context: context,
@@ -227,11 +382,10 @@ class ProductSearchDelegate extends SearchDelegate<Producto> {
         oldContext: _,
         title: Text('Cantidad'),
         content: NumberPicker(
-          step: 1,
           minValue: 1,
-          haptics: true,
           maxValue: product.stock,
           value: productosBLoC.cantidadProducto,
+          onChanged: (newValue) => productosBLoC.updateNumberSelector(newValue),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30.0),
             border: Border.all(
@@ -239,9 +393,6 @@ class ProductSearchDelegate extends SearchDelegate<Producto> {
               width: 2,
             ),
           ),
-          onChanged: (newValue) {
-            productosBLoC.cantidadProducto = int.parse(newValue.toString());
-          },
         ),
         actions: [
           TextButton(
@@ -262,6 +413,7 @@ class ProductSearchDelegate extends SearchDelegate<Producto> {
             style:
                 ButtonStyle(shape: MaterialStateProperty.all(StadiumBorder())),
             onPressed: () {
+              productosBLoC.cantidadProducto = 1;
               Navigator.of(context).pop();
               close(context, product);
             },

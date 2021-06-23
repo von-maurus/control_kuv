@@ -27,103 +27,93 @@ class UserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      floatingActionButton: FloatingActionButton(
-        heroTag: 'btnLogout',
-        backgroundColor: Colors.red[600],
-        elevation: 10,
-        onPressed: () => _showMyDialog(context),
-        child: Icon(Icons.logout),
-      ),
-      appBar: AppBar(
-        centerTitle: true,
-        elevation: 6.0,
-        toolbarHeight: 41.0,
-        backgroundColor: Colors.blue[900],
-        title: Text(
-          'Perfil',
-          style: TextStyle(letterSpacing: 1.0, fontSize: 25.0),
+    return SafeArea(
+      child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          heroTag: 'btnLogout',
+          backgroundColor: Colors.red[600],
+          elevation: 10,
+          onPressed: () => _showMyDialog(context),
+          child: Icon(Icons.logout),
         ),
-      ),
-      body: FutureBuilder<Object>(
-        future: _loadUser(context),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState != ConnectionState.done) {
-            return Container();
-          }
-
-          ///TODO: Checar tipo de usuario e info retornada
-          //SOLVED: Solucion parcial ya que no es eficiente debido a las transformaciones)
-          var user = Usuario.fromJson(json.decode(json.encode(snapshot.data)));
-          return ListView(
-            children: [
-              Stack(
-                children: [
-                  Column(
-                    children: [
-                      Center(
-                        child: Container(
-                          margin: EdgeInsets.only(top: 15),
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: user.imagen!.isEmpty
-                                ? ClipOval(
-                                    child: SvgPicture.asset(
-                                      placeholderImage,
-                                      height: 85,
-                                      width: 85,
-                                      // color: Colors.blue[900],
+        appBar: AppBar(
+          toolbarHeight: 41.0,
+          title: Text('Perfil'),
+        ),
+        body: FutureBuilder<Object>(
+          future: _loadUser(context),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState != ConnectionState.done) {
+              return Container();
+            }
+            ///TODO: Checar tipo de usuario e info retornada
+            //SOLVED: Solucion parcial ya que no es eficiente debido a las transformaciones)
+            var user = Usuario.fromJson(json.decode(json.encode(snapshot.data)));
+            return ListView(
+              children: [
+                Stack(
+                  children: [
+                    Column(
+                      children: [
+                        Center(
+                          child: Container(
+                            margin: EdgeInsets.only(top: 15),
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: user.imagen.isEmpty
+                                  ? ClipOval(
+                                      child: SvgPicture.asset(placeholderImage,
+                                          color: Theme.of(context).accentColor,
+                                          height: 85,
+                                          width: 85
+                                          // color: Colors.blue[900],
+                                          ),
+                                    )
+                                  : CircleAvatar(
+                                      radius: 65.0,
+                                      backgroundImage: NetworkImage(user.imagen),
                                     ),
-                                  )
-                                : CircleAvatar(
-                                    radius: 65.0,
-                                    backgroundImage: NetworkImage(user.imagen!),
-                                  ),
+                            ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(4),
-                      ),
-                      Text(
-                        user.nombre,
-                        style: TextStyle(
-                            //color: Colors.black87,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 20),
-                        textAlign: TextAlign.center,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(4),
-                      ),
-                      user.tipo == 1
-                          ? Text(
-                              'Administrador',
-                              style: TextStyle(
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 18.0),
-                              textAlign: TextAlign.center,
-                            )
-                          : Text(
-                              'Vendedor',
-                              style: TextStyle(
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 18.0),
-                              textAlign: TextAlign.center,
-                            ),
-                      _UserInfo(
-                        user: user,
-                      )
-                    ],
-                  )
-                ],
-              )
-            ],
-          );
-        },
+                        Padding(
+                          padding: EdgeInsets.all(4),
+                        ),
+                        Text(
+                          user.nombre,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 20),
+                          textAlign: TextAlign.center,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(4),
+                        ),
+                        user.tipo == 1
+                            ? Text(
+                                'Administrador',
+                                style: TextStyle(
+                                    color: Colors.black87,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 18.0),
+                                textAlign: TextAlign.center,
+                              )
+                            : Text(
+                                'Vendedor',
+                                style: TextStyle(
+                                    color: Colors.black87,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 18.0),
+                                textAlign: TextAlign.center,
+                              ),
+                        _UserInfo(user: user)
+                      ],
+                    )
+                  ],
+                )
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -151,7 +141,6 @@ class UserScreen extends StatelessWidget {
       context: context,
       barrierDismissible: false,
       builder: (_) => AlertDialogPage(
-        title: Text('Aviso'),
         oldContext: _,
         content: Padding(
           padding: const EdgeInsets.only(top: 30.0),
@@ -204,7 +193,7 @@ class _UserInfo extends StatelessWidget {
             margin: EdgeInsets.only(top: 20, left: 20, right: 20),
             child: Container(
               alignment: Alignment.topLeft,
-              padding: EdgeInsets.all(15),
+              padding: EdgeInsets.all(15.0),
               child: Column(
                 children: <Widget>[
                   Container(
@@ -221,7 +210,7 @@ class _UserInfo extends StatelessWidget {
                   ),
                   Divider(
                     color: Colors.black38,
-                    thickness: 2,
+                    thickness: 1.5,
                   ),
                   Container(
                       child: Column(
@@ -230,6 +219,9 @@ class _UserInfo extends StatelessWidget {
                         leading: Icon(Icons.person),
                         title: Text('Usuario'),
                         subtitle: Text(user.username),
+                        tileColor: Colors.white54,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0)),
                       ),
                       ListTile(
                         leading: Icon(Icons.email),
@@ -237,10 +229,12 @@ class _UserInfo extends StatelessWidget {
                         subtitle: Text(user.correo),
                       ),
                       ListTile(
-                        leading: Icon(Icons.phone),
-                        title: Text('Teléfono'),
-                        subtitle: Text('+' + user.fono!),
-                      ),
+                          leading: Icon(Icons.phone),
+                          title: Text('Teléfono'),
+                          subtitle: Text('+' + user.fono!),
+                          tileColor: Colors.white54,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0))),
                       ListTile(
                         leading: Icon(Icons.monetization_on),
                         title: Text('Comisión'),

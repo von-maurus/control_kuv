@@ -76,8 +76,8 @@ class PreSaleBLoC extends ChangeNotifier {
     PreSaleCart p;
     for (p in tempList) {
       if (p.product.id == product.id) {
-        p.quantity += quantity;
-        p.precioLinea += quantity * p.product.precioVentaFinal;
+        p.quantity = quantity;
+        p.precioLinea = quantity * p.product.precioVentaFinal;
         found = true;
         break;
       }

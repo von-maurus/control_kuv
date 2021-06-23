@@ -18,13 +18,14 @@ class ItemProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: EdgeInsets.only(
-          right: MediaQuery.of(context).orientation == Orientation.portrait
-              ? MediaQuery.of(context).size.width * 0.01
-              : MediaQuery.of(context).size.width * 0.0001,
-          left: MediaQuery.of(context).orientation == Orientation.portrait
-              ? MediaQuery.of(context).size.width * 0.01
-              : MediaQuery.of(context).size.width * 0.0001,
-          top: 25),
+        right: MediaQuery.of(context).orientation == Orientation.portrait
+            ? MediaQuery.of(context).size.width * 0.01
+            : MediaQuery.of(context).size.width * 0.0001,
+        left: MediaQuery.of(context).orientation == Orientation.portrait
+            ? MediaQuery.of(context).size.width * 0.01
+            : MediaQuery.of(context).size.width * 0.0001,
+        top: 25,
+      ),
       elevation: 10.0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
       color: Theme.of(context).canvasColor,
@@ -46,7 +47,7 @@ class ItemProduct extends StatelessWidget {
       children: [
         Expanded(
           flex: 3,
-          child: product.imagen!.isEmpty
+          child: product.imagen.isEmpty
               ? Container(
                   padding: EdgeInsets.all(size.width >= 750.0 ? 10.0 : 20.0),
                   child: SvgPicture.asset(
@@ -55,9 +56,30 @@ class ItemProduct extends StatelessWidget {
                   ),
                 )
               : Container(
-                  child: Image.network(
-                    product.imagen!,
-                    fit: BoxFit.fitHeight,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    child: Image.network(
+                      product.imagen,
+                      fit: BoxFit.fitHeight,
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent? loadingProgress) {
+                        if (loadingProgress == null) {
+                          return child;
+                        }
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: KuveColors.kuveVerde,
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
         ),
@@ -94,10 +116,10 @@ class ItemProduct extends StatelessWidget {
                             Orientation.portrait
                         ? size.width >= 600
                             ? 16.5
-                            : 13.5
+                            : 12.0
                         : size.width >= 750
                             ? 19.0
-                            : 14.0),
+                            : 12.5),
               ),
               Text(
                 '\$${formatter.format(product.precioVentaFinal)}',
@@ -124,11 +146,11 @@ class ItemProduct extends StatelessWidget {
           width: double.infinity,
           child: KuveButton(
             onTap: onTap,
-            padding: const EdgeInsets.symmetric(vertical: 9.5),
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
             text: 'Añadir',
             fontSize: MediaQuery.of(context).orientation == Orientation.portrait
-                ? 20.5
-                : 25.5,
+                ? 16.0
+                : 20.0,
           ),
         )
       ],

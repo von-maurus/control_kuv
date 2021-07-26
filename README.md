@@ -1,6 +1,6 @@
 # control_kuv
 
-Aplicacion movil multiplataforma para el control de ventas.
+Aplicacion movil multiplataforma para el control de ventas. Esta aplicacion fue desarrollada utilizando el framework Flutter (frontend) y se conecta con una RESTAPI desarrollada en PHP utilizando el framework Yii 2.0
 
 ## Getting Started
 
